@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-static bool	validate_char(char chr, t_map_data *data)
+static bool	validate_char(char chr, t_map_chars_vali *data)
 {
 	if (chr == EMPTY_CHAR || chr == WALL_CHAR)
 		return (1);
@@ -36,7 +36,7 @@ static bool	validate_char(char chr, t_map_data *data)
 	return (1);
 }
 
-static bool validate_line(t_map *map, t_map_data *data, size_t line_i)
+static bool validate_line(t_map *map, t_map_chars_vali *data, size_t line_i)
 {
 	char	*line;
 	size_t	char_i;
@@ -63,12 +63,12 @@ static bool validate_line(t_map *map, t_map_data *data, size_t line_i)
 		return (!perr_titled("Map not rectangular!\n"));
 }
 
-bool validate_map(t_map *map)
+bool validate_map_contents(t_map *map)
 {
-	t_map_data	*data;
+	t_map_chars_vali	*data;
 	size_t		line_i;
 
-	data = ft_calloc(1, sizeof(t_map_data));
+	data = ft_calloc(1, sizeof(t_map_chars_vali));
 	if (!data)
 		return (!perrno("Map validation", ENOMEM));
 	if (map->lines)

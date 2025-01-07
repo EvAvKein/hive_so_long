@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 17:11:59 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/07 11:14:22 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/07 18:10:04 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,16 @@
 
 # define LAYOUT_MALLOC_CHUNK 512
 
-typedef struct  s_map_data {
-	bool    player;
-	size_t  collectible;
+typedef struct  s_map_path_vali {
+	bool    exit_found;
+	size_t  collected;
+}           t_map_path_vali;
+
+typedef struct  s_map_chars_vali {
+	bool	player;
 	bool    exit;
-}           t_map_data;
+	size_t  collectible;
+}           t_map_chars_vali;
 
 typedef struct 		s_map 	{
 	char  			**layout;

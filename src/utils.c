@@ -12,3 +12,16 @@
 
 #include "so_long.h"
 
+char    direction_by_i(unsigned int i)
+{
+    if (i == 0)
+		return (UP_CHAR);
+    if (i == 1)
+		return (LEFT_CHAR);
+	if (i == 2)
+		return (RIGHT_CHAR); 
+	if (i == 3)
+		return (DOWN_CHAR);
+    return (perr("BUG: direction_by_i received i of '")
+            && perr(&i) && !perr("' (ascii representation)\n"));
+}

@@ -31,4 +31,10 @@ typedef struct s_game {
 	
 }				t_game;
 
+bool	adjacent_move(char **layout, t_entity *entity,
+			char direction, char trailing);
+char	adjacent_char(char **layout, size_t own_x, size_t own_y,
+			char direction);
+char    direction_by_i(size_t i);
+
 #endif

@@ -15,10 +15,10 @@
 // - Return the number 1 (to support one-lining in conditional syntax)
 
 // Print "Error\n" 
-int	print_error_title();
+int	perr_titled(char *text);
 
 // Print the provided text
-int	print_error(char *text);
+int	perr(char *text);
 
 // Call `perror` (print the provided text, a colon, and the errno text)
-int	print_errno(char *precolon, unsigned int errno);
+int	perrno(char *precolon, int errnum);

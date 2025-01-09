@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../include/so_long.h"
 
 int	main(int argc, char **argv)
 {
-	t_game *game;
+	t_game	*game;
 
 	if (argc < 2)
 		return (perr("Map please :)\n"));
@@ -22,10 +22,8 @@ int	main(int argc, char **argv)
 		return (perr("Just one map please :(\n"));
 	game = ft_calloc(1, sizeof(t_game));
 	if (!game)
-		return (!perrno("Game instantiation\n", ENOMEM));
+		return (!perrno("Game instantiation", ENOMEM));
 	if (!save_map(game, argv[1]))
 		return (clean_exit(game));
-
-
 	return (0);
 }

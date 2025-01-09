@@ -6,11 +6,11 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 17:37:51 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/06 17:51:51 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/08 15:15:05 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../include/so_long.h"
 
 int	perr_titled(char *text)
 {
@@ -19,14 +19,15 @@ int	perr_titled(char *text)
 	return (1);
 }
 
-int perr(char *text)
+int	perr(char *text)
 {
 	write(2, text, ft_strlen(text));
 	return (1);
 }
 
-int	perrno(char *precolon, unsigned int errno)
+int	perrno(char *precolon, int errnum)
 {
-	perror(precolon, errno);
+	errno = errnum;
+	perror(precolon);
 	return (1);
 }

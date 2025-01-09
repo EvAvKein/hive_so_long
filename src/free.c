@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../include/so_long.h"
 
-bool	free_map(t_map	*map)
+void	free_map(t_map	*map)
 {
 	size_t		i;
 
@@ -21,19 +21,16 @@ bool	free_map(t_map	*map)
 		free(map->layout[i++]);
 	free(map->layout);
 	free(map);
-	return (0);
 }
 
-int    clean_exit(t_game *game)
+int	clean_exit(t_game *game)
 {
 	if (game)
 	{
 		if (game->map)
 			free_map(game->map);
-
 		free(game);
 	}
 	exit(1);
 	return (1);
 }
-

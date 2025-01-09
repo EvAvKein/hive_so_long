@@ -6,11 +6,11 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 17:36:33 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/09 13:11:56 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/09 19:57:19 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "../../include/so_long.h"
 
 bool	layoutdup_unchunked_swap(t_map *map, char ***dest)
 {

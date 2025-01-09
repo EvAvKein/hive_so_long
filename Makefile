@@ -6,7 +6,7 @@
 #    By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/11 09:31:47 by ekeinan           #+#    #+#              #
-#    Updated: 2025/01/08 15:39:43 by ekeinan          ###   ########.fr        #
+#    Updated: 2025/01/09 20:01:50 by ekeinan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,21 +21,16 @@ MLX_DIR = MLX42
 MLX_BUILD_DIR = build
 MLX_LIB = $(MLX_DIR)/$(MLX_BUILD_DIR)/libmlx42.a
 
-#INCLUDE_DIR = include
-#INCLUDE_FILES = so_long.h \
-				maps.h \
-		  		errors.h
-#INCLUDES = $(INCLUDE_FILES:%=$(INCLUDE_DIR)/%)
-
 SRC_DIR = src
 SRC_FILES = main.c \
 		 	errors.c \
 	 		free.c \
 			utils.c \
-	  		save_map.c \
 	  		adjacent.c \
-	  		validate_map_contents.c \
-	  		validate_map_path.c
+	  		map/save_map.c \
+	  		map/validate_map_contents.c \
+	  		map/validate_map_path.c \
+			mlx/hooks.c
 	  
 
 COMPILE_FLAGS = -Wall -Wextra -Werror

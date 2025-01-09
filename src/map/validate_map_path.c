@@ -6,11 +6,11 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:11:52 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/09 13:14:56 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/09 19:57:31 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "../../include/so_long.h"
 
 static bool	init_player(t_map *map, t_entity *player)
 {

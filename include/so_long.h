@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:42:52 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/08 15:34:37 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/09 19:49:26 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,15 @@
 # include <errno.h>
 # include <string.h>
 # include "../libft_full/libft_full.h"
+# include "mlx.h"
 # include "errors.h"
+
+# define BASE_WIDTH			640 // Scales well to a lot of screen sizes!
+# define BASE_HEIGHT		360 // Scales well to a lot of screen sizes!
+# define WIDTH				2 * BASE_WIDTH
+# define HEIGHT				2 * BASE_HEIGHT
+
+# define BPP				20
 
 # define EMPTY_CHAR			'0'
 # define WALL_CHAR			'1'
@@ -86,6 +94,6 @@ bool	adjacent_move(char **layout, t_entity *entity,
 			char direction, char trailing);
 char    direction_by_i(unsigned int i);
 
-int		clean_exit(t_game *game);
+int		clean_exit(mlx_t *mlx, t_game *game, bool exit_code);
 
 #endif

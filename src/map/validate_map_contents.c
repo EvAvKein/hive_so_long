@@ -6,11 +6,11 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 12:11:38 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/09 12:57:31 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/09 19:57:26 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "../../include/so_long.h"
 
 static bool	validate_char(char chr, t_map_chars_vali *data)
 {

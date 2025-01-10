@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:42:52 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/09 19:49:26 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/10 10:56:36 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ bool	print_layout(char **layout, size_t lines, int fd);
 
 bool	save_map(t_game *game, char *map_path);
 bool	layoutdup_unchunked_swap(t_map *map, char ***dest);
-void	free_map(t_map	*map);
 
 bool	validate_map_contents(t_map *map, size_t *collectibles);
 bool	validate_map_path(t_map *map, size_t collectible);

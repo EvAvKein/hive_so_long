@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:42:52 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/10 10:56:36 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/10 21:08:03 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@
 # include "mlx.h"
 # include "errors.h"
 
-# define BASE_WIDTH			640 // Scales well to a lot of screen sizes!
-# define BASE_HEIGHT		360 // Scales well to a lot of screen sizes!
+# define BASE_WIDTH			500//640 // Scales well to a lot of screen sizes!
+# define BASE_HEIGHT		500//360 // Scales well to a lot of screen sizes!
 # define WIDTH				2 * BASE_WIDTH
 # define HEIGHT				2 * BASE_HEIGHT
 
-# define BPP				20
+# define BPP				50
 
 # define EMPTY_CHAR			'0'
 # define WALL_CHAR			'1'
@@ -72,10 +72,17 @@ typedef struct 		s_map 	{
 }					t_map;
 
 typedef struct s_game {
+	mlx_t		*mlx;
 	t_map		*map;
-	
+	t_images	*images;
 }				t_game;
 
+bool	render_init(t_game *game);
+bool	load_images(t_game *game);
+
+bool	for_each_tile(t_map *map,
+			bool(*func)(char c, size_t x, size_t y, void *extras),
+			void *extras);
 bool	print_layout(char **layout, size_t lines, int fd);
 
 bool	save_map(t_game *game, char *map_path);
@@ -93,6 +100,6 @@ bool	adjacent_move(char **layout, t_entity *entity,
 			char direction, char trailing);
 char    direction_by_i(unsigned int i);
 
-int		clean_exit(mlx_t *mlx, t_game *game, bool exit_code);
+int		clean_exit(t_game *game, bool exit_code);
 
 #endif

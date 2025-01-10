@@ -6,7 +6,7 @@
 #    By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/11 09:31:47 by ekeinan           #+#    #+#              #
-#    Updated: 2025/01/09 20:01:50 by ekeinan          ###   ########.fr        #
+#    Updated: 2025/01/10 20:58:12 by ekeinan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,8 @@ SRC_FILES = main.c \
 	  		map/save_map.c \
 	  		map/validate_map_contents.c \
 	  		map/validate_map_path.c \
+			mlx/images.c \
+			mlx/render.c \
 			mlx/hooks.c
 	  
 
@@ -47,7 +49,7 @@ $(MLX_LIB):
 	@cd $(MLX_DIR) && cmake -B build && cmake --build build -j4
 
 %.o: %.c
-	cc $(COMPILE_FLAGS) -c $< -o $@
+	cc $(COMPILE_FLAGS) -c $< -o $@ -g
 
 $(NAME): $(LIBFT_LIB) $(MLX_LIB) $(OBJ)
 	cc $(COMPILE_FLAGS) $(OBJ) $(LIBFT_LIB) $(COMPILE_WITH_MLX) -o $(NAME)

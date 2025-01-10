@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 19:03:55 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/03 19:08:58 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/10 19:51:37 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,3 +22,5 @@ int	perr(char *text);
 
 // Call `perror` (print the provided text, a colon, and the errno text)
 int	perrno(char *precolon, int errnum);
+
+int	perrno_mlx();

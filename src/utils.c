@@ -6,14 +6,14 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:00:09 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/10 19:53:20 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/14 22:36:05 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-bool	for_each_tile(t_map *map,
-			bool(*func)(char c, size_t x, size_t y, void *extras),
+bool	for_each_tile(t_game *game,
+			bool(*func)(t_game *game, t_entity c, void *extras),
 			void *extras)
 {
 	char	**layout;
@@ -23,15 +23,15 @@ bool	for_each_tile(t_map *map,
 	size_t	x;
 
 	y = 0;
-	layout = map->layout;
-	lines = map->lines;	
+	layout = game->map->layout;
+	lines = game->map->lines;	
 	while (y < lines)
 	{
 		x = 0;
 		line = layout[y];
 		while (line[x])
 		{
-			if (!func(line[x], x, y, extras))
+			if (!func(game, (t_entity){line[x], (t_pos){x, y}}, extras))
 				return (0);
 			x++;
 		}
@@ -40,10 +40,10 @@ bool	for_each_tile(t_map *map,
 	return (1);
 }
 
-bool	update_pos(t_pos *pos, size_t new_y, size_t new_x)
+bool	update_pos(t_entity *entity, size_t new_y, size_t new_x)
 {
-	pos->y = new_y;
-	pos->x = new_x;
+	entity->pos.y = new_y;
+	entity->pos.x = new_x;
 	return (1);
 }
 

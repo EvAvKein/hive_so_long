@@ -6,39 +6,60 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 12:16:07 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/10 20:10:55 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/14 19:02:18 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/so_long.h"
 
-bool render_background(char c, size_t x, size_t y, void *extras)
+bool	render_background(t_game *game, t_entity c, void *extras)
 {
-	t_game *game;
-	static size_t debug = 0;
-
-	(void)c;
-	game = extras;
-	printf("%lu\n", debug);
+	(void) extras;
+	
 	if (mlx_image_to_window(game->mlx,
-			game->images->background, x * BPP, y * BPP) < 0)
+			game->images->background, c.pos.x * BPP, c.pos.y * BPP) < 0)
 		return (!perrno_mlx());
 	return (1);
 }
 
-// bool render_tile(char c, size_t x, size_t y, void *extras)
-// {
-// 	if (map.)
-// }
-
-bool render_init(t_game *game)
+bool	render_tile(t_game *game, t_entity c, void *extras)
 {
-	mlx_image_t *bg_image;
+	int	outcome;
+	(void) extras;
+	
+	outcome = -1;
+	if (c.chr == EMPTY_CHAR)
+		outcome = 1;
+	else if (c.chr == WALL_CHAR)
+		outcome = mlx_image_to_window(game->mlx,
+			game->images->wall, c.pos.x * BPP, c.pos.y * BPP);
+	else if (c.chr == PLAYER_CHAR)
+		outcome = mlx_image_to_window(game->mlx,
+			game->images->player, c.pos.x * BPP, c.pos.y * BPP);
+	else if (c.chr == COLLECTIBLE_CHAR)
+		outcome = mlx_image_to_window(game->mlx,
+			game->images->collectible, c.pos.x * BPP, c.pos.y * BPP);
+	else if (c.chr == EXIT_CHAR)
+		outcome = mlx_image_to_window(game->mlx,
+			game->images->exit, c.pos.x * BPP, c.pos.y * BPP);
+	else
+	{
+		perr("Attempted render tile from invalid char: '");
+		perr(&c.chr);
+		perr("' \n");
+	}
+	return (!(outcome < 0) || !perrno_mlx());
+}
 
-	bg_image = game->images->background;
-	if (for_each_tile(game->map, render_background, bg_image))
+
+bool	render_init(t_game *game)
+{
+	(void) game;
+	
+	if (!for_each_tile(game, render_background, NULL))
 		return (0);
-
-	//for_each_tile(game->map, render_tile, NULL);
+	if (!for_each_tile(game, render_tile, NULL))
+		return (0);
+	//align_all_images(game);
 	return (1);
 }

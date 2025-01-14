@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:49:11 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/10 21:15:54 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/14 22:13:44 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,15 @@
 
 static bool	launch_game(t_game *game)
 {
-	mlx_t *mlx = game->mlx;
-	
-	mlx = mlx_init(WIDTH, HEIGHT, "so_long", false);
-	if (!mlx)
-		return (EXIT_FAILURE);
-	game->mlx = mlx;
-	printf("one\n");
-	mlx_image_t* img = mlx_new_image(mlx, WIDTH, HEIGHT);
-	ft_memset(img->pixels, 255, WIDTH * HEIGHT * sizeof(int));
-	printf("two\n");
-	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
-		clean_exit(game, EXIT_FAILURE);
-	//mlx_key_hook(game->mlx, keyhook, NULL);
-	printf("three\n");
+	game->mlx = mlx_init(WIDTH, HEIGHT, "so_long", true);
+	if (!game->mlx)
+		return (clean_exit(game, EXIT_FAILURE));
+	mlx_key_hook(game->mlx, keyhook, game);
 	load_images(game);
-	printf("four\n");
 	render_init(game);
-	printf("five\n");
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
-	return (EXIT_SUCCESS);
+	mlx_loop(game->mlx);
+	mlx_terminate(game->mlx);
+	return (clean_exit(game, EXIT_SUCCESS));
 }
 
 int	main(int argc, char **argv)

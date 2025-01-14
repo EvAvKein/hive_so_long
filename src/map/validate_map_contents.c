@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 12:11:38 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/09 19:57:26 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/14 18:39:35 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,20 +65,20 @@ static bool	validate_line(t_map *map, t_map_chars_vali *data, size_t line_i)
 	return (1);
 }
 
-bool	validate_map_contents(t_map *map, size_t *collectibles)
+bool	validate_map_contents(t_game *game, size_t *collectibles)
 {
 	size_t				line_i;
 	t_map_chars_vali	data;
 
-	if (map->lines)
-		map->width = ft_strlen(map->layout[1]);
+	if (game->map->lines)
+		game->map->width = ft_strlen(game->map->layout[1]);
 	else
-		map->width = 0;
+		game->map->width = 0;
 	line_i = 0;
 	data.player = 0;
 	data.collectibles = 0;
-	while (line_i < map->lines)
-		if (!validate_line(map, &data, line_i++))
+	while (line_i < game->map->lines)
+		if (!validate_line(game->map, &data, line_i++))
 			return (0);
 	if (!data.player)
 		return (!perr_titled("Map needs at least 1 player!\n"));
@@ -86,7 +86,7 @@ bool	validate_map_contents(t_map *map, size_t *collectibles)
 		return (!perr_titled("Map needs at least 1 collectible!\n"));
 	if (!data.exit)
 		return (!perr_titled("Map needs at least 1 exit!\n"));
-	if (map->width < 3 || map->lines < 3)
+	if (game->map->width < 3 || game->map->lines < 3)
 		return (!perr_titled("Map too small!\n"));
 	*collectibles = data.collectibles;
 	return (1);

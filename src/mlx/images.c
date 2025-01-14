@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 11:03:35 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/10 21:18:52 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/14 21:10:12by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,45 +18,80 @@ static mlx_image_t *load_image(mlx_t *mlx, char *path)
 	mlx_image_t *img;
 
 	texture = mlx_load_png(path);
-	printf("%s\n", path);
 	if (!texture)
 		return (NULL);
-	printf("texture %p\n", texture);
 	img = mlx_texture_to_image(mlx, texture);
-	printf("image\n");
 	return (img);
 }
 
 bool load_images(t_game *game)
 {
 	t_images *images;
-	
+
 	images = ft_calloc(1, sizeof(t_images));
 	if (!images)
 		return (!perrno("Image saving", ENOMEM));
-	printf("1\n");
-	images->background = load_image(game->mlx, "./textures/background2.png");
-	printf("1.5\n");
+	images->background = load_image(game->mlx, "./textures/background.png");
 	if (!images->background)
 		return (!perr("Failed to load background image\n"));
-	printf("2\n");
 	images->wall = load_image(game->mlx, "textures/wall.png");
 	if (!images->wall)
 		return (!perr("Failed to load wall image\n"));
-	printf("3\n");
 	images->collectible = load_image(game->mlx, "textures/collectible.png");
 	if (!images->collectible)
 		return (!perr("Failed to load collectible image\n"));
-	printf("4\n");
 	images->exit = load_image(game->mlx, "textures/exit.png");
 	if (!images->exit)
 		return (!perr("Failed to load exit image\n"));
-	printf("5\n");
 	images->player = load_image(game->mlx, "textures/player.png");
 	if (!images->player)
 		return (!perr("Failed to load player image\n"));
-	printf("6\n");
 	game->images = images;
-	printf("7\n");
 	return (1);
+}
+
+// CHECK PERFORMANCE -  SEEMS LIKE A BAD IDEA BUT CBA TO LOOK INTO MLX INTERNALS YET
+bool	draw_new_images(t_game *game, t_entity c, void *extras)
+{
+	t_pos		offset;
+	mlx_image_t	*img;
+	
+	offset = *(t_pos *)extras;
+	if (c.chr == WALL_CHAR)
+		img = game->images->wall;
+	else if (c.chr == PLAYER_CHAR)
+		img = game->images->player;
+	else if (c.chr == COLLECTIBLE_CHAR)
+		img = game->images->collectible;
+	else if (c.chr == EXIT_CHAR)
+		img = game->images->exit;
+	else
+		return (0);
+	if (mlx_image_to_window(game->mlx, game->images->background,
+		c.pos.x + offset.x, c.pos.y + offset.y) < 0
+		|| mlx_image_to_window(game->mlx, img,
+		c.pos.x + offset.x, c.pos.y + offset.y) < 0)
+		return (!perr("MLX image drawing error\n"));
+	return (1);
+}
+
+bool	draw_frame(t_game *game)
+{
+	t_pos	offset;
+	
+	offset.x = smin((game->player->pos.x * BPP) - (WIDTH / 2),
+				(game->map->width * BPP) - WIDTH);
+	offset.y = smin((game->player->pos.y * BPP) - (HEIGHT / 2),
+				(game->map->lines * BPP) - HEIGHT);
+	if (!for_each_tile(game, draw_new_images, &offset))
+		return (0);
+	return (1);
+	// while (i < images->wall->count)
+	// 	images->wall->instances[i].x;
+	// while (i < images->player)
+	// 	images->player->instances[i].x;
+	// while (i < images->collectible->count)
+	// 	images->collectible->instances[i].x;
+	// while (i < images->exit->count)
+	// 	images->exit->instances[i].x;
 }

@@ -50,13 +50,14 @@ bool load_images(t_game *game)
 	return (1);
 }
 
-// CHECK PERFORMANCE -  SEEMS LIKE A BAD IDEA BUT CBA TO LOOK INTO MLX INTERNALS YET
-bool	draw_new_images(t_game *game, t_entity c, void *extras)
+bool	draw_tile(t_game *game, t_entity c, void *extras)
 {
+	// CHECK PERFORMANCE -  SEEMS LIKE A BAD IDEA BUT CBA TO LOOK INTO MLX INTERNALS YET
 	t_pos		offset;
 	mlx_image_t	*img;
-	
+
 	offset = *(t_pos *)extras;
+	img = NULL;
 	if (c.chr == WALL_CHAR)
 		img = game->images->wall;
 	else if (c.chr == PLAYER_CHAR)
@@ -65,27 +66,57 @@ bool	draw_new_images(t_game *game, t_entity c, void *extras)
 		img = game->images->collectible;
 	else if (c.chr == EXIT_CHAR)
 		img = game->images->exit;
-	else
+	else if (c.chr != EMPTY_CHAR)
 		return (0);
 	if (mlx_image_to_window(game->mlx, game->images->background,
-		c.pos.x + offset.x, c.pos.y + offset.y) < 0
-		|| mlx_image_to_window(game->mlx, img,
-		c.pos.x + offset.x, c.pos.y + offset.y) < 0)
+		(c.pos.x - offset.x) * BPP, (c.pos.y - offset.y) * BPP) < 0
+		|| (img && mlx_image_to_window(game->mlx, img,
+		(c.pos.x - offset.x) * BPP, (c.pos.y - offset.y) * BPP) < 0))
 		return (!perr("MLX image drawing error\n"));
 	return (1);
 }
 
+static t_pos calc_offset(t_game *game)
+{
+	t_pos			offset;
+
+	if (game->map->width * BPP < (size_t)game->screen.width && game->map->lines * BPP < (size_t)game->screen.height)
+	{
+		offset.x = safe_minus(game->screen.width / BPP / 2, game->map->width / 2);
+		offset.y = safe_minus(game->screen.height / BPP / 2, game->map->lines / 2);
+		printf("sx=%lu, sy=%lu\n", offset.x, offset.y);
+		return (offset);
+	}
+	if (game->images->player->instances)
+		update_pos(&offset, (size_t)game->images->player->instances->x / BPP,
+			(size_t)game->images->player->instances->y / BPP);
+	else
+		init_player_pos(game, &offset);
+	printf("px=%lu, py=%lu\n", offset.x, offset.y);
+	offset.x = clamp_s(0, safe_minus(offset.x, (game->screen.width / BPP / 2)),
+				safe_minus(game->map->width, (game->screen.width / BPP)));
+	offset.y = clamp_s(0, safe_minus(offset.y, (game->screen.height / BPP / 2)),
+				safe_minus(game->map->lines, (game->screen.height / BPP)));
+	return (offset);
+}
+
 bool	draw_frame(t_game *game)
 {
-	t_pos	offset;
-	
-	offset.x = smin((game->player->pos.x * BPP) - (WIDTH / 2),
-				(game->map->width * BPP) - WIDTH);
-	offset.y = smin((game->player->pos.y * BPP) - (HEIGHT / 2),
-				(game->map->lines * BPP) - HEIGHT);
-	if (!for_each_tile(game, draw_new_images, &offset))
+	t_pos			offset;
+
+	offset = calc_offset(game);	
+	printf("fx=%lu, fy=%lu\n", offset.x, offset.y);
+	// offset.y = clamp_s((offset.y * BPP) - (HEIGHT / 2),
+	// 			(game->map->lines * BPP) - HEIGHT);
+	if (!for_each_tile(game, draw_tile, &offset))
 		return (0);
+	// player = game->images->player->instances;
+	// offset.x = smin(player->x - (WIDTH / 2),
+	// 			(game->map->width * BPP) - WIDTH);
+	// offset.y = smin(player->y - (HEIGHT / 2),
+	// 			(game->map->lines * BPP) - HEIGHT);
 	return (1);
+
 	// while (i < images->wall->count)
 	// 	images->wall->instances[i].x;
 	// while (i < images->player)

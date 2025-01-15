@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 19:48:22 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/10 20:12:26 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/15 15:28:13 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,3 +21,4 @@ typedef struct	s_images {
 }				t_images;
 
 void    keyhook(mlx_key_data_t keydata, void *param);
+void    resizehook(int width, int height, void* param);

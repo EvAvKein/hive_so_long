@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:00:09 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/14 22:36:05 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/15 13:58:13 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ bool	for_each_tile(t_game *game,
 	return (1);
 }
 
-bool	update_pos(t_entity *entity, size_t new_y, size_t new_x)
+bool	update_pos(t_pos *pos, size_t new_x, size_t new_y)
 {
-	entity->pos.y = new_y;
-	entity->pos.x = new_x;
+	pos->x = new_x;
+	pos->y = new_y;
 	return (1);
 }
 

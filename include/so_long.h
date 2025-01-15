@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:42:52 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/14 22:50:24 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/15 15:43:31 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 
 # define BASE_WIDTH			640 // Scales well to a lot of screen sizes!
 # define BASE_HEIGHT		360 // Scales well to a lot of screen sizes!
-# define WIDTH				2 * BASE_WIDTH
-# define HEIGHT				2 * BASE_HEIGHT
+# define INIT_WIDTH			2 * BASE_WIDTH
+# define INIT_HEIGHT		2 * BASE_HEIGHT
 
 # define BPP				40
 
@@ -71,17 +71,16 @@ typedef struct 		s_map 	{
 	size_t			lines;
 }					t_map;
 
-typedef	struct	s_screen_tiles {
-	size_t		width;
-	size_t		height;
-}				t_screen_tiles;
+typedef	struct	s_screen {
+	int		width;
+	int		height;
+}				t_screen;
 
 typedef struct		s_game {
 	mlx_t			*mlx;
 	t_map			*map;
 	t_images		*images;
-	t_entity		*player;
-	t_screen_tiles	screen_tiles;
+	t_screen		screen;
 }					t_game;
 
 bool	load_images(t_game *game);
@@ -93,15 +92,20 @@ bool	for_each_tile(t_game *game,
 			void *extras);
 bool	print_layout(char **layout, size_t lines, int fd);
 
+bool	update_pos_if_player(t_game *game, t_entity c, void *extras);
+bool	init_player_pos(t_game *game, t_pos *nav_pos);
+
 bool	save_map(t_game *game, char *map_path);
 bool	layoutdup_unchunked_swap(t_map *map, char ***dest);
 
 bool	validate_map_contents(t_game *game, size_t *collectibles);
 bool	validate_map_path(t_game *game, size_t collectible);
 
-size_t	smin(size_t first, size_t second);
+size_t	min_s(size_t first, size_t second);
+size_t	clamp_s(size_t min, size_t num, size_t max);
+size_t	safe_minus(size_t first, size_t second);
 
-bool    update_pos(t_entity *entity, size_t new_y, size_t new_x);
+bool    update_pos(t_pos *pos, size_t new_x, size_t new_y);
 t_pos	adjacent_pos(t_pos pos, char direction);
 char	adjacent_char(char **layout, t_pos pos, char direction);
 bool	adjacent_replace(char **layout, t_pos pos,

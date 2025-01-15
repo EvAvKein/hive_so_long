@@ -6,7 +6,7 @@
 #    By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/11 09:31:47 by ekeinan           #+#    #+#              #
-#    Updated: 2025/01/14 22:22:27 by ekeinan          ###   ########.fr        #
+#    Updated: 2025/01/15 14:44:37 by ekeinan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,9 @@ SRC_FILES = main.c \
 		 	errors.c \
 	 		free.c \
 			utils.c \
+			utilss.c \
 			math.c \
-	  		adjacent.c \
+	  		map/adjacent.c \
 	  		map/save_map.c \
 	  		map/validate_map_contents.c \
 	  		map/validate_map_path.c \

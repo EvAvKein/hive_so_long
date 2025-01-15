@@ -6,11 +6,11 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 19:36:20 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/14 18:45:38 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/15 14:01:05 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "../../include/so_long.h"
 
 t_pos	adjacent_pos(t_pos pos, char direction)
 {
@@ -58,27 +58,27 @@ bool	adjacent_replace(char **layout, t_pos pos, char direction,
 	return (1);
 }
 
-bool	adjacent_move(char **layout, t_entity *entity,
-			char direction, char trailing)
-{
-	char	*prev;
-	char	*dest;
+// bool	adjacent_move(char **layout, t_entity *entity,
+// 			char direction, char trailing)
+// {
+// 	char	*prev;
+// 	char	*dest;
 
-	if (WALL_CHAR == adjacent_char(layout, entity->pos, direction))
-		return (0);
-	prev = &layout[entity->pos.y][entity->pos.x];
-	if (direction == UP_CHAR)
-		update_pos(entity, entity->pos.y - 1, entity->pos.x);
-	else if (direction == DOWN_CHAR)
-		update_pos(entity, entity->pos.y + 1, entity->pos.x);
-	else if (direction == LEFT_CHAR)
-		update_pos(entity, entity->pos.y, entity->pos.x - 1);
-	else if (direction == RIGHT_CHAR)
-		update_pos(entity, entity->pos.y, entity->pos.x + 1);
-	else
-		return (!perr("BUG: adjacent_move got invalid direction\n"));
-	dest = &layout[entity->pos.y][entity->pos.x];
-	*dest = entity->chr;
-	*prev = trailing;
-	return (1);
-}
+// 	if (WALL_CHAR == adjacent_char(layout, entity->pos, direction))
+// 		return (0);
+// 	prev = &layout[entity->pos.y][entity->pos.x];
+// 	if (direction == UP_CHAR)
+// 		update_pos(entity.pos, entity->pos.x, entity->pos.y - 1);
+// 	else if (direction == DOWN_CHAR)
+// 		update_pos(entity, entity->pos.x, entity->pos.y + 1);
+// 	else if (direction == LEFT_CHAR)
+// 		update_pos(entity, entity->pos.x - 1, entity->pos.y);
+// 	else if (direction == RIGHT_CHAR)
+// 		update_pos(entity, entity->pos.x + 1, entity->pos.y);
+// 	else
+// 		return (!perr("BUG: adjacent_move got invalid direction\n"));
+// 	dest = &layout[entity->pos.y][entity->pos.x];
+// 	*dest = entity->chr;
+// 	*prev = trailing;
+// 	return (1);
+// }

@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 12:16:07 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/14 19:02:18 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/15 14:25:24 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,11 @@ bool	render_tile(t_game *game, t_entity c, void *extras)
 
 bool	render_init(t_game *game)
 {
-	(void) game;
-	
-	if (!for_each_tile(game, render_background, NULL))
+	// if (!for_each_tile(game, render_background, NULL))
+	// 	return (0);
+	// if (!for_each_tile(game, render_tile, NULL))
+	// 	return (0);
+	if (!draw_frame(game))
 		return (0);
-	if (!for_each_tile(game, render_tile, NULL))
-		return (0);
-	//align_all_images(game);
 	return (1);
 }

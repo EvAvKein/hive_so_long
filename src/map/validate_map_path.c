@@ -25,7 +25,7 @@ static void	navigate(char **replica, t_pos pos, t_map_path_vali *journey)
 	if (chr == COLLECTIBLE_CHAR)
 		journey->collected++;
 	if (chr == EXIT_CHAR)
-		journey->exit_found++;
+		journey->exit_found = 1;
 	*tile = NAVIGATED_CHAR;
 	i = 0;
 	while (i < 4)

@@ -12,14 +12,7 @@
 
 #include "../include/so_long.h"
 
-size_t	min_s(size_t first, size_t second)
-{
-	if (first < second)
-		return (first);
-	return (second);
-}
-
-size_t	clamp_s(size_t min, size_t num, size_t max)
+int	clamp(int min, int num, int max)
 {
 	if (num < min)
 		return (min);

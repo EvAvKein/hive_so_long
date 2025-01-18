@@ -61,6 +61,20 @@ char	direction_by_i(unsigned int i)
 		&& perr((char *)&i) && !perr("' (ascii representation)\n"));
 }
 
+char direction_by_offset(t_offset offset)
+{
+	if ((offset.x && offset.y) || (!offset.x && !offset.y))
+		return (!perr("BUG: direction_by_offset received two/zero offsets\n"));
+	if (offset.x < 0)
+		return (LEFT_CHAR);
+	if (offset.x > 0)
+		return (RIGHT_CHAR);
+	if (offset.y < 0)
+		return (UP_CHAR);
+	if (offset.y > 0)
+		return (DOWN_CHAR);
+	return (!perr("BUG: direction_by_offset received impossible offset (\?\?)\n"));
+}
 
 bool	print_layout(char **layout, size_t lines, int fd)
 {

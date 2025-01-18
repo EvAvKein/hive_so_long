@@ -22,13 +22,13 @@ static bool	validate_char(char chr, t_map_chars_vali *data)
 	{
 		if (data->exit)
 			return (!perr_titled("Map can only have 1 exit!\n"));
-		data->exit++;
+		data->exit = 1;
 	}
 	else if (chr == PLAYER_CHAR)
 	{
 		if (data->player)
 			return (!perr_titled("Map can only have 1 player!\n"));
-		data->player++;
+		data->player = 1;
 	}
 	else
 		return (perr_titled("Map has invalid character: ")
@@ -75,8 +75,7 @@ bool	validate_map_contents(t_game *game, size_t *collectibles)
 	else
 		game->map->width = 0;
 	line_i = 0;
-	data.player = 0;
-	data.collectibles = 0;
+	ft_bzero(&data, sizeof(t_map_chars_vali));
 	while (line_i < game->map->lines)
 		if (!validate_line(game->map, &data, line_i++))
 			return (0);

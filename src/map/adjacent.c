@@ -31,6 +31,15 @@ t_pos	adjacent_pos(t_pos pos, char direction)
 	return (pos);
 }
 
+t_entity	adjacent_entity(char **layout, t_pos pos, char direction)
+{
+	t_entity entity;
+
+	entity.pos = adjacent_pos(pos, direction);
+	entity.chr = layout[pos.y][pos.x];
+	return (entity);
+}
+
 char	adjacent_char(char **layout, t_pos pos, char direction)
 {
 	if (direction == UP_CHAR)

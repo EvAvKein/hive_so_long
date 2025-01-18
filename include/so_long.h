@@ -55,6 +55,16 @@ typedef struct  s_map_chars_vali {
 	size_t  collectibles;
 }           t_map_chars_vali;
 
+typedef struct	s_offset {
+	int	x;
+	int	y;
+}			t_offset;
+
+typedef struct	s_progress {
+	size_t	to_collect;
+	size_t	standing_on_exit;
+}			t_progress;
+
 typedef struct	s_pos {
 	size_t	x;
 	size_t	y;
@@ -79,13 +89,16 @@ typedef	struct	s_screen {
 typedef struct		s_game {
 	mlx_t			*mlx;
 	t_map			*map;
-	t_images		*images;
+	t_images		images;
 	t_screen		screen;
+	t_progress		progress;
 }					t_game;
 
-bool	load_images(t_game *game);
-bool	render_init(t_game *game);
-bool	draw_frame(t_game *game);
+mlx_instance_t * image_instance_by_pos(mlx_image_t *img, t_pos pos);
+bool	draw_images(t_game *game);
+bool	move_player(t_game *game, char direction, size_t distance);
+
+t_entity	adjacent_entity(char **layout, t_pos pos, char direction);
 
 bool	for_each_tile(t_game *game,
 			bool(*func)(t_game *game, t_entity c, void *extras),
@@ -101,18 +114,16 @@ bool	layoutdup_unchunked_swap(t_map *map, char ***dest);
 bool	validate_map_contents(t_game *game, size_t *collectibles);
 bool	validate_map_path(t_game *game, size_t collectible);
 
-size_t	min_s(size_t first, size_t second);
-size_t	clamp_s(size_t min, size_t num, size_t max);
-size_t	safe_minus(size_t first, size_t second);
+int	clamp(int min, int num, int max);
 
 bool    update_pos(t_pos *pos, size_t new_x, size_t new_y);
 t_pos	adjacent_pos(t_pos pos, char direction);
 char	adjacent_char(char **layout, t_pos pos, char direction);
 bool	adjacent_replace(char **layout, t_pos pos,
 			char direction, char replacement);
-bool	adjacent_move(char **layout, t_entity *entity,
-			char direction, char trailing);
+bool  move_image_by_direction(mlx_image_t *img, char direction);
 char    direction_by_i(unsigned int i);
+char direction_by_offset(t_offset offset);
 
 int		clean_exit(t_game *game, bool exit_code);
 

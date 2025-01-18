@@ -19,8 +19,7 @@ static bool	launch_game(t_game *game)
 		return (clean_exit(game, EXIT_FAILURE));
 	mlx_key_hook(game->mlx, keyhook, game);
 	mlx_resize_hook(game->mlx, resizehook, game);	
-	load_images(game);
-	render_init(game);
+	draw_images(game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
 	return (clean_exit(game, EXIT_SUCCESS));

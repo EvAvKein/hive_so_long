@@ -27,8 +27,6 @@ int	clean_exit(t_game *game, bool exit_code)
 {
 	if (game->map)
 		free_map(game->map);
-	if (game->images) // figure out if we need to free the images ourselves too
-		free (game->images);
 	exit(exit_code);
 	return (1);
 }

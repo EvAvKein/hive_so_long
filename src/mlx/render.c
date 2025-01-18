@@ -17,7 +17,7 @@ bool	render_background(t_game *game, t_entity c, void *extras)
 	(void) extras;
 	
 	if (mlx_image_to_window(game->mlx,
-			game->images->background, c.pos.x * BPP, c.pos.y * BPP) < 0)
+			game->images.background, c.pos.x * BPP, c.pos.y * BPP) < 0)
 		return (!perrno_mlx());
 	return (1);
 }
@@ -32,16 +32,16 @@ bool	render_tile(t_game *game, t_entity c, void *extras)
 		outcome = 1;
 	else if (c.chr == WALL_CHAR)
 		outcome = mlx_image_to_window(game->mlx,
-			game->images->wall, c.pos.x * BPP, c.pos.y * BPP);
+			game->images.wall, c.pos.x * BPP, c.pos.y * BPP);
 	else if (c.chr == PLAYER_CHAR)
 		outcome = mlx_image_to_window(game->mlx,
-			game->images->player, c.pos.x * BPP, c.pos.y * BPP);
+			game->images.player, c.pos.x * BPP, c.pos.y * BPP);
 	else if (c.chr == COLLECTIBLE_CHAR)
 		outcome = mlx_image_to_window(game->mlx,
-			game->images->collectible, c.pos.x * BPP, c.pos.y * BPP);
+			game->images.collectible, c.pos.x * BPP, c.pos.y * BPP);
 	else if (c.chr == EXIT_CHAR)
 		outcome = mlx_image_to_window(game->mlx,
-			game->images->exit, c.pos.x * BPP, c.pos.y * BPP);
+			game->images.exit, c.pos.x * BPP, c.pos.y * BPP);
 	else
 	{
 		perr("Attempted render tile from invalid char: '");

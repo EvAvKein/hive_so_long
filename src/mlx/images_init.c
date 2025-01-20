@@ -106,6 +106,5 @@ bool	draw_images(t_game *game)
 	offset = calc_initial_offset(game);	
 	if (!for_each_tile(game, draw_image_by_chr, &offset))
 		return (0);
-	printf("drawn\n");
 	return (1);
 }

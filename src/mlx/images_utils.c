@@ -1,19 +1,23 @@
 #include "../../include/so_long.h"
 
-mlx_instance_t * image_instance_by_pos(mlx_image_t *img, t_pos pos)
+mlx_instance_t *image_instance_by_pos(mlx_instance_t *first_wall, mlx_image_t *img, t_pos pos)
 {
+  t_offset  offset;
   size_t  instance_count;
   size_t  i;
 
+  offset.x = first_wall->x / BPP;
+  offset.y = first_wall->y / BPP;
   instance_count = img->count;
   i = 0;
   while (i < instance_count)
   {
-    if (img->instances[i].x / BPP == (int)pos.x
-        && img->instances[i].y / BPP == (int)pos.y)
+    if (img->instances[i].x / BPP == offset.x + (int)pos.x
+        && img->instances[i].y / BPP == offset.y + (int)pos.y)
       return (&img->instances[i]);
     i++;
   }
+  perr("image_instance_by_pos not found\n");
   return (NULL);
 }
 
@@ -46,6 +50,18 @@ static bool	offset_image_instances(mlx_image_t *img, int relative_x, int relativ
   return (1);
 }
 
+  // if (direction == UP_CHAR && game->images.player->instances->y < game->screen.height / 2
+  //     && walls->instances[0].y > 0)
+  //   offset.y += BPP;
+  // else if (direction == DOWN_CHAR && game->images.player->instances->y > game->screen.height / 2
+  //     && walls->instances[walls->count - 1].y > game->screen.height - BPP)
+  //   offset.y -= BPP;
+  // else if (direction == LEFT_CHAR && game->images.player->instances->x < game->screen.width / 2
+  //     && walls->instances[0].x < 0)
+  //   offset.x += BPP;
+  // else if (direction == RIGHT_CHAR && game->images.player->instances->x > game->screen.width / 2
+  //     && walls->instances[walls->count - 1].x > game->screen.width - BPP)
+  //   offset.x -= BPP;
 bool offset_images_within_bounds(t_game *game, char direction)
 {
   t_offset		offset;
@@ -53,15 +69,17 @@ bool offset_images_within_bounds(t_game *game, char direction)
 
   walls = game->images.wall;
   offset = (t_offset){0, 0};
-  if (direction == UP_CHAR
+  if (direction == UP_CHAR && game->images.player->instances->y < game->screen.height / 2
       && walls->instances[walls->count - 1].y < (int)(game->map->lines * BPP - BPP))
     offset.y += BPP;
-  else if (direction == DOWN_CHAR && walls->instances[0].y < 0)
+  else if (direction == DOWN_CHAR && game->images.player->instances->y > game->screen.height / 2
+      && walls->instances[0].y < 0)
     offset.y -= BPP;
-  else if (direction == LEFT_CHAR
+  else if (direction == LEFT_CHAR && game->images.player->instances->x < game->screen.width / 2
       && walls->instances[walls->count - 1].x < (int)(game->map->width * BPP - BPP))
     offset.x += BPP;
-  else if (direction == RIGHT_CHAR && walls->instances[0].x < 0)
+  else if (direction == RIGHT_CHAR && game->images.player->instances->x > game->screen.width / 2
+      && walls->instances[0].x < 0)
     offset.x -= BPP;
   if (offset.x || offset.y)
   {

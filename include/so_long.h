@@ -94,10 +94,11 @@ typedef struct		s_game {
 	t_progress		progress;
 }					t_game;
 
-mlx_instance_t * image_instance_by_pos(mlx_image_t *img, t_pos pos);
+mlx_instance_t * image_instance_by_pos(mlx_instance_t *first_wall, mlx_image_t *img, t_pos pos);
 bool	draw_images(t_game *game);
 bool	move_player(t_game *game, char direction, size_t distance);
 
+bool offset_images_within_bounds(t_game *game, char direction);
 t_entity	adjacent_entity(char **layout, t_pos pos, char direction);
 
 bool	for_each_tile(t_game *game,

@@ -33,11 +33,12 @@ t_pos	adjacent_pos(t_pos pos, char direction)
 
 t_entity	adjacent_entity(char **layout, t_pos pos, char direction)
 {
-	t_entity entity;
+	t_entity adjacent;
 
-	entity.pos = adjacent_pos(pos, direction);
-	entity.chr = layout[pos.y][pos.x];
-	return (entity);
+	adjacent.pos = adjacent_pos(pos, direction);
+	adjacent.chr = layout[adjacent.pos.y][adjacent.pos.x];
+	printf("Adjacent: %c @ (%lu, %lu)\n", adjacent.chr, adjacent.pos.x, adjacent.pos.y);
+	return (adjacent);
 }
 
 char	adjacent_char(char **layout, t_pos pos, char direction)

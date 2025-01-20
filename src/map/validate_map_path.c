@@ -52,5 +52,7 @@ bool	validate_map_path(t_game *game, size_t collectibles)
 	if (!journey.exit_found)
 		return (perr_titled("Map validation: Unreachable exit!\n")
 			&& !print_layout(replica, game->map->lines, 2));
+	game->progress.to_collect = collectibles;
+	game->progress.standing_on_exit = 0;
 	return (1);
 }

@@ -79,39 +79,13 @@ static bool	draw_tile(t_game *game, t_entity c, void *extras)
 	return (1);
 }
 
-static t_offset calc_initial_offset(t_game *game)
-{
-	t_offset			offset;
-	t_pos		player;
-
-	offset = (t_offset){.x = 0, .y = 0};
-	if ((size_t)game->screen.width > game->map->width * BPP)
-		offset.x = (game->screen.width / BPP / 2) - (game->map->width / 2);	
-	if ((size_t)game->screen.height > game->map->lines * BPP)
-		offset.y = (game->screen.height / BPP / 2) - (game->map->lines / 2);
-	if (offset.x && offset.y)
-		return (offset);
-	if (game->images.player->instances)
-		update_pos(&player, (size_t)game->images.player->instances->x / BPP,
-			(size_t)game->images.player->instances->y / BPP);
-	else
-		init_player_pos(game, &player);
-	if (!offset.x)
-		offset.x = clamp((0 - game->map->width + (game->screen.width / BPP)),
-				(0 - player.x + (game->screen.width / BPP / 2)), 0);
-	if (!offset.y)
-		offset.y = clamp((0 - game->map->lines + (game->screen.height / BPP)),
-				(0 - player.y + (game->screen.height / BPP / 2)), 0);
-	return (offset);
-}
-
 bool	draw_images(t_game *game)
 {
 	t_offset			offset;
 
 	if (!load_images(game))
 		return (0);
-	offset = calc_initial_offset(game);
+	offset = calc_offset(game);
 	if (!for_each_tile(game, draw_background, &offset)
 		|| !for_each_tile(game, draw_tile, &offset))
 		return (0);

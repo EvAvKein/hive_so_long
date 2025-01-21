@@ -1,13 +1,10 @@
 #include "../../include/so_long.h"
 
-mlx_instance_t *image_instance_by_pos(mlx_instance_t *first_wall, mlx_image_t *img, t_pos pos)
+mlx_instance_t *image_instance_by_pos(mlx_image_t *img, t_offset offset, t_pos pos)
 {
-  t_offset  offset;
   size_t  instance_count;
   size_t  i;
 
-  offset.x = first_wall->x / BPP;
-  offset.y = first_wall->y / BPP;
   instance_count = img->count;
   i = 0;
   while (i < instance_count)
@@ -64,4 +61,30 @@ bool offset_images_within_bounds(t_game *game, char direction)
   offset_image_instances(game->images.player, offset.x, offset.y);
   offset_image_instances(game->images.collectible, offset.x, offset.y);
   return (1);
+}
+
+t_offset calc_offset(t_game *game)
+{
+	t_offset			offset;
+	t_pos		player;
+
+	offset = (t_offset){.x = 0, .y = 0};
+	if ((size_t)game->screen.width > game->map->width * BPP)
+		offset.x = (game->screen.width / BPP / 2) - (game->map->width / 2);	
+	if ((size_t)game->screen.height > game->map->lines * BPP)
+		offset.y = (game->screen.height / BPP / 2) - (game->map->lines / 2);
+	if (offset.x && offset.y)
+		return (offset);
+	if (game->images.player->instances)
+		update_pos(&player, (size_t)game->images.player->instances->x / BPP,
+			(size_t)game->images.player->instances->y / BPP);
+	else
+		init_player_pos(game, &player);
+	if (!offset.x)
+		offset.x = clamp((0 - game->map->width + (game->screen.width / BPP)),
+				(0 - player.x + (game->screen.width / BPP / 2)), 0);
+	if (!offset.y)
+		offset.y = clamp((0 - game->map->lines + (game->screen.height / BPP)),
+				(0 - player.y + (game->screen.height / BPP / 2)), 0);
+	return (offset);
 }

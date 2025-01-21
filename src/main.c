@@ -14,7 +14,8 @@
 
 static bool	launch_game(t_game *game)
 {
-	game->mlx = mlx_init(game->screen.width, game->screen.height, "so_long", true);
+	game->mlx = mlx_init(game->screen.width, game->screen.height,
+		WINDOW_TITLE, false);
 	if (!game->mlx)
 		return (clean_exit(game, EXIT_FAILURE));
 	mlx_key_hook(game->mlx, keyhook, game);

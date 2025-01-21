@@ -25,11 +25,12 @@ bool	move_player(t_game *game, char direction)
 	t_entity		ahead;
 
 	update_pos(&player_pos,
-		(game->images.player->instances->x - game->images.wall->instances->x) / BPP, 
-		(game->images.player->instances->y - game->images.wall->instances->y)/ BPP);
+		(game->images.player->instances->x - game->images.wall->instances->x) / BPP,
+		(game->images.player->instances->y - game->images.wall->instances->y) / BPP);
 		ahead = adjacent_entity(game->map->layout, player_pos, direction);
 	if (ahead.chr == WALL_CHAR)
 		return (0);
+	ft_printf("Moves: %d\n", ++game->progress.moves);
 	if (ahead.chr == COLLECTIBLE_CHAR && game->progress.to_collect--)
 		image_instance_by_pos(game->images.collectible,
 			(t_offset){.x = game->images.wall->instances->x / BPP,
@@ -38,10 +39,9 @@ bool	move_player(t_game *game, char direction)
 	if (ahead.chr == EXIT_CHAR && ++game->progress.standing_on_exit
 			&& !game->progress.to_collect)
 			victory(game);
-	if (ahead.chr != EXIT_CHAR && game->progress.standing_on_exit && game->progress.standing_on_exit--)
+	game->map->layout[player_pos.y][player_pos.x] = EMPTY_CHAR;
+	if (game->progress.standing_on_exit && game->progress.standing_on_exit--)
 		game->map->layout[player_pos.y][player_pos.x] = EXIT_CHAR;
-	else
-		game->map->layout[player_pos.y][player_pos.x] = EMPTY_CHAR;
 	adjacent_replace(game->map->layout, player_pos, direction, PLAYER_CHAR);
 	player_pos = ahead.pos;
 	offset_images_within_bounds(game, direction);

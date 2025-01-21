@@ -75,7 +75,7 @@ bool	validate_map_contents(t_game *game, size_t *collectibles)
 	else
 		game->map->width = 0;
 	line_i = 0;
-	ft_bzero(&data, sizeof(t_map_chars_vali));
+	data = (t_map_chars_vali){.player = false, .collectibles = 0, .exit = false};
 	while (line_i < game->map->lines)
 		if (!validate_line(game->map, &data, line_i++))
 			return (0);

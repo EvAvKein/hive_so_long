@@ -37,7 +37,6 @@ t_entity	adjacent_entity(char **layout, t_pos pos, char direction)
 
 	adjacent.pos = adjacent_pos(pos, direction);
 	adjacent.chr = layout[adjacent.pos.y][adjacent.pos.x];
-	printf("Adjacent: %c @ (%lu, %lu)\n", adjacent.chr, adjacent.pos.x, adjacent.pos.y);
 	return (adjacent);
 }
 
@@ -63,7 +62,7 @@ bool	adjacent_replace(char **layout, t_pos pos, char direction,
 	char	*target;
 
 	target_pos = adjacent_pos(pos, direction);
-	target = &layout[target_pos.x][target_pos.y];
+	target = &layout[target_pos.y][target_pos.x];
 	*target = replacement;
 	return (1);
 }

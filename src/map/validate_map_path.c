@@ -38,9 +38,8 @@ bool	validate_map_path(t_game *game, size_t collectibles)
 	t_map_path_vali	journey;
 	t_pos			nav_pos;
 
-	nav_pos.x = 0;
-	nav_pos.y = 0;
-	ft_bzero(&journey, sizeof(t_map_path_vali));
+	nav_pos = (t_pos){.x = 0, .y = 0};
+	journey = (t_map_path_vali){.collected = 0, .exit_found = false};
 	if (!layoutdup_unchunked_swap(game->map, &replica))
 		return (0);
 	if (!init_player_pos(game, &nav_pos))
@@ -53,6 +52,5 @@ bool	validate_map_path(t_game *game, size_t collectibles)
 		return (perr_titled("Map validation: Unreachable exit!\n")
 			&& !print_layout(replica, game->map->lines, 2));
 	game->progress.to_collect = collectibles;
-	game->progress.standing_on_exit = 0;
 	return (1);
 }

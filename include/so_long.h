@@ -122,7 +122,6 @@ t_pos	adjacent_pos(t_pos pos, char direction);
 char	adjacent_char(char **layout, t_pos pos, char direction);
 bool	adjacent_replace(char **layout, t_pos pos,
 			char direction, char replacement);
-bool  move_image_by_direction(mlx_image_t *img, char direction);
 char    direction_by_i(unsigned int i);
 char direction_by_offset(t_offset offset);
 

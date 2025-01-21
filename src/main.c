@@ -33,9 +33,13 @@ int	main(int argc, char **argv)
 		return (perr("Map please :)\n"));
 	if (argc > 2)
 		return (perr("Just one map please :(\n"));
-	ft_bzero(&game, sizeof(t_game));
-	game.screen.width = INIT_WIDTH;
-	game.screen.height = INIT_HEIGHT;
+	game = (t_game){
+		.map = NULL,
+		.images = NULL,
+		.mlx = NULL,
+		.progress = (t_progress){.standing_on_exit = 0, .to_collect = 0},
+		.screen = (t_screen){.width = INIT_WIDTH, .height = INIT_HEIGHT}
+	};
 	if (!save_map(&game, argv[1]))
 		clean_exit(&game, EXIT_FAILURE);
 	return (launch_game(&game));

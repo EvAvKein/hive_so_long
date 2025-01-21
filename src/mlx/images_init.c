@@ -44,13 +44,25 @@ static bool load_images(t_game *game)
 	return (1);
 }
 
-static bool	draw_image_by_chr(t_game *game, t_entity c, void *extras)
+static bool draw_background(t_game *game, t_entity c, void *extras)
+{
+	t_offset		offset;
+	
+	offset = *(t_offset *)extras;
+	if (mlx_image_to_window(game->mlx, game->images.background,
+		((int)c.pos.x + offset.x) * BPP, ((int)c.pos.y + offset.y) * BPP) < 0)
+		return (!perr("MLX background drawing error\n"));
+	return (1);
+}
+
+static bool	draw_tile(t_game *game, t_entity c, void *extras)
 {
 	t_offset		offset;
 	mlx_image_t	*img;
 
+	if (c.chr == EMPTY_CHAR)
+		return (1);
 	offset = *(t_offset *)extras;
-	img = NULL;
 	if (c.chr == WALL_CHAR)
 		img = game->images.wall;
 	else if (c.chr == PLAYER_CHAR)
@@ -59,13 +71,11 @@ static bool	draw_image_by_chr(t_game *game, t_entity c, void *extras)
 		img = game->images.collectible;
 	else if (c.chr == EXIT_CHAR)
 		img = game->images.exit;
-	else if (c.chr != EMPTY_CHAR)
+	else
 		return (!perr("Draw image attempt with invalid char\n"));
-	if (mlx_image_to_window(game->mlx, game->images.background,
-		((int)c.pos.x + offset.x) * BPP, ((int)c.pos.y + offset.y) * BPP) < 0
-		|| (img && mlx_image_to_window(game->mlx, img,
-		((int)c.pos.x + offset.x) * BPP, ((int)c.pos.y + offset.y) * BPP) < 0))
-		return (!perr("MLX image drawing error\n"));
+	if (mlx_image_to_window(game->mlx, img,
+		((int)c.pos.x + offset.x) * BPP, ((int)c.pos.y + offset.y) * BPP) < 0)
+		return (!perr("MLX tile drawing error\n"));
 	return (1);
 }
 
@@ -74,14 +84,13 @@ static t_offset calc_initial_offset(t_game *game)
 	t_offset			offset;
 	t_pos		player;
 
-	ft_bzero(&offset, sizeof(t_offset));
+	offset = (t_offset){.x = 0, .y = 0};
 	if ((size_t)game->screen.width > game->map->width * BPP)
 		offset.x = (game->screen.width / BPP / 2) - (game->map->width / 2);	
 	if ((size_t)game->screen.height > game->map->lines * BPP)
 		offset.y = (game->screen.height / BPP / 2) - (game->map->lines / 2);
 	if (offset.x && offset.y)
 		return (offset);
-		//ft_printf("sx=%i, sy=%i\n", offset.x, offset.y);
 	if (game->images.player->instances)
 		update_pos(&player, (size_t)game->images.player->instances->x / BPP,
 			(size_t)game->images.player->instances->y / BPP);
@@ -93,7 +102,6 @@ static t_offset calc_initial_offset(t_game *game)
 	if (!offset.y)
 		offset.y = clamp((0 - game->map->lines + (game->screen.height / BPP)),
 				(0 - player.y + (game->screen.height / BPP / 2)), 0);
-	//ft_printf("ox=%i, oy=%i\n", offset.x, offset.y);
 	return (offset);
 }
 
@@ -101,10 +109,11 @@ bool	draw_images(t_game *game)
 {
 	t_offset			offset;
 
-	if (!game->images.player)
-		load_images(game);
-	offset = calc_initial_offset(game);	
-	if (!for_each_tile(game, draw_image_by_chr, &offset))
+	if (!load_images(game))
+		return (0);
+	offset = calc_initial_offset(game);
+	if (!for_each_tile(game, draw_background, &offset)
+		|| !for_each_tile(game, draw_tile, &offset))
 		return (0);
 	return (1);
 }

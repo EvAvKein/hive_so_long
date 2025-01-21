@@ -20,10 +20,3 @@ int	clamp(int min, int num, int max)
 		return (max);
 	return (num);
 }
-
-size_t	safe_minus(size_t first, size_t second)
-{
-	if (first < second)
-		return (0);
-	return (first - second);
-}

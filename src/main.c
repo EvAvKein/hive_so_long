@@ -36,7 +36,13 @@ int	main(int argc, char **argv)
 		return (perr("Just one map please :(\n"));
 	game = (t_game){
 		.map = NULL,
-		.images = NULL,
+		.images = {
+			.background = NULL,
+			.wall = NULL,
+			.collectible = NULL,
+			.exit = NULL,
+			.player = NULL
+		},
 		.mlx = NULL,
 		.progress = (t_progress){.standing_on_exit = 0, .to_collect = 0, .moves = 0},
 		.screen = (t_screen){.width = INIT_WIDTH, .height = INIT_HEIGHT}

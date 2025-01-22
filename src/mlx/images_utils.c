@@ -14,10 +14,9 @@ mlx_instance_t *image_instance_by_pos(mlx_image_t *img, t_offset offset, t_pos p
       return (&img->instances[i]);
     i++;
   }
-  perr("image_instance_by_pos not found\n");
+  perr("BUG: image_instance_by_pos not found\n");
   return (NULL);
 }
-
 
 static bool	offset_image_instances(mlx_image_t *img, int relative_x, int relative_y)
 {

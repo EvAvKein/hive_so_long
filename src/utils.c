@@ -75,16 +75,3 @@ char direction_by_offset(t_offset offset)
 		return (DOWN_CHAR);
 	return (!perr("BUG: direction_by_offset received impossible offset (\?\?)\n"));
 }
-
-bool	print_layout(char **layout, size_t lines, int fd)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < lines)
-	{
-		ft_putstr_fd(layout[i++], fd);
-		ft_putchar_fd('\n', fd);
-	}
-	return (1);
-}

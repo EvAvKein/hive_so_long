@@ -48,9 +48,11 @@
 # define LAYOUT_MALLOC_CHUNK 512
 
 typedef struct  s_map_path_vali {
-	bool    exit_found;
 	size_t  collected;
-}           t_map_path_vali;
+	bool    exit_found;
+	bool    visualize;
+	size_t  map_lines;
+}           t_journey;
 
 typedef struct  s_map_chars_vali {
 	bool	player;
@@ -117,6 +119,7 @@ bool	init_player_pos(t_game *game, t_pos *nav_pos);
 bool	save_map(t_game *game, char *map_path);
 bool	layoutdup_unchunked_swap(t_map *map, char ***dest);
 
+bool	print_layout_and_pause(char **layout, size_t lines, int fd, t_journey *journey);
 bool	validate_map_contents(t_game *game, size_t *collectibles);
 bool	validate_map_path(t_game *game, size_t collectible);
 

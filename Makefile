@@ -32,6 +32,7 @@ SRC_FILES = main.c \
 	  		map/save_map.c \
 	  		map/validate_map_contents.c \
 	  		map/validate_map_path.c \
+	  		map/visualize.c \
 			mlx/images_init.c \
 			mlx/images_utils.c \
 			movement.c \

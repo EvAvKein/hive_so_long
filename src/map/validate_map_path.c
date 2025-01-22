@@ -12,7 +12,7 @@
 
 #include "../../include/so_long.h"
 
-static void	navigate(char **replica, t_pos pos, t_map_path_vali *journey)
+static void	navigate(char **replica, t_pos pos, t_journey *journey)
 {
 	unsigned int	i;
 	char			*tile;
@@ -22,6 +22,9 @@ static void	navigate(char **replica, t_pos pos, t_map_path_vali *journey)
 	chr = *tile;
 	if (chr == WALL_CHAR || chr == NAVIGATED_CHAR)
 		return ;
+	if (journey->visualize)
+		journey->visualize = print_layout_and_pause(replica, journey->map_lines,
+		1, journey);
 	if (chr == COLLECTIBLE_CHAR)
 		journey->collected++;
 	if (chr == EXIT_CHAR)
@@ -35,11 +38,14 @@ static void	navigate(char **replica, t_pos pos, t_map_path_vali *journey)
 bool	validate_map_path(t_game *game, size_t collectibles)
 {
 	char			**replica;
-	t_map_path_vali	journey;
+	t_journey	journey;
 	t_pos			nav_pos;
 
 	nav_pos = (t_pos){.x = 0, .y = 0};
-	journey = (t_map_path_vali){.collected = 0, .exit_found = false};
+	journey = (t_journey){
+		.collected = 0, .exit_found = false,
+		.visualize = 1, .map_lines = game->map->lines
+	};
 	if (!layoutdup_unchunked_swap(game->map, &replica))
 		return (0);
 	if (!init_player_pos(game, &nav_pos))

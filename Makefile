@@ -53,10 +53,14 @@ $(MLX_LIB):
 	@cd $(MLX_DIR) && cmake -B build && cmake --build build -j4
 
 %.o: %.c
-	cc $(COMPILE_FLAGS) -c $< -o $@
+	cc $(COMPILE_FLAGS) -c $< -o $@ -DVISUALIZE=$(if $(VISUALIZE),1,0)
 
 $(NAME): $(LIBFT_LIB) $(MLX_LIB) $(OBJ)
 	cc $(COMPILE_FLAGS) $(OBJ) $(LIBFT_LIB) $(COMPILE_WITH_MLX) -o $(NAME)
+
+visualize: export VISUALIZE = 1
+visualize: $(OBJ)
+	@$(MAKE) $(NAME) --no-print-directory
 
 clean:
 	@make -C $(LIBFT_DIR) $@ --no-print-directory

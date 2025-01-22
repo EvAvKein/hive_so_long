@@ -44,6 +44,9 @@
 # define RIGHT_CHAR			'R'
 
 # define NAVIGATED_CHAR		'-'
+# ifndef VISUALIZE
+#  define VISUALIZE 0
+# endif
 
 # define LAYOUT_MALLOC_CHUNK 512
 

@@ -44,7 +44,7 @@ bool	validate_map_path(t_game *game, size_t collectibles)
 	nav_pos = (t_pos){.x = 0, .y = 0};
 	journey = (t_journey){
 		.collected = 0, .exit_found = false,
-		.visualize = 1, .map_lines = game->map->lines
+		.visualize = VISUALIZE, .map_lines = game->map->lines
 	};
 	if (!layoutdup_unchunked_swap(game->map, &replica))
 		return (0);

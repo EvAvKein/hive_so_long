@@ -23,7 +23,7 @@
 # include "perrors.h"
 # include "settings.h"
 
-typedef struct  s_map_path_vali {
+typedef struct  s_journey {
 	size_t  collected;
 	bool    exit_found;
 	bool    visualize;

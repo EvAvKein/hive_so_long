@@ -45,6 +45,7 @@ typedef struct	s_progress {
 	mlx_image_t		*moves_str;
 	size_t	moves;
 	size_t	to_collect;
+	size_t	attacks;
 	size_t	standing_on_exit;
 }			t_progress;
 

@@ -42,6 +42,24 @@ static void	increment_move_counters(t_game *game)
 	free(new_string);
 }
 
+static bool collect_collectible(t_game *game, t_entity *collectible)
+{
+	mlx_instance_t *img;
+
+	if (collectible->chr != COLLECTIBLE_CHAR)
+		return (!perr("Collect attempt with non-collectible tile!\n"));
+	img = image_instance_by_pos(game->images.collectible,
+		(t_offset){.x = game->images.wall->instances->x / BPP,
+		.y = game->images.wall->instances->y / BPP},
+		collectible->pos);
+	if (!img)
+		return (!perr("Collect attempt failed to find corresponding image!!\n"));
+	img->enabled = 0;
+	game->progress.to_collect -= 1;
+	game->progress.attacks += 1;
+	return (1);
+}
+
 bool	move_player(t_game *game, char direction)
 {
 	t_pos		player_pos;
@@ -54,11 +72,8 @@ bool	move_player(t_game *game, char direction)
 	if (ahead.chr == WALL_CHAR)
 		return (0);
 	increment_move_counters(game);
-	if (ahead.chr == COLLECTIBLE_CHAR && game->progress.to_collect--)
-		image_instance_by_pos(game->images.collectible,
-			(t_offset){.x = game->images.wall->instances->x / BPP,
-			.y = game->images.wall->instances->y / BPP},
-			ahead.pos)->enabled = 0;
+	if (ahead.chr == COLLECTIBLE_CHAR)
+		collect_collectible(game, &ahead);
 	if (ahead.chr == EXIT_CHAR && ++game->progress.standing_on_exit
 			&& !game->progress.to_collect)
 			victory(game);

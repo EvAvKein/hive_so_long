@@ -23,18 +23,18 @@
 # include "perrors.h"
 # include "settings.h"
 
+typedef struct  s_map_chars_vali {
+	bool	player;
+	bool    exit;
+	size_t  collectibles;
+}           t_map_chars_vali;
+
 typedef struct  s_journey {
 	size_t  collected;
 	bool    exit_found;
 	bool    visualize;
 	size_t  visualizing_lines;
 }           t_journey;
-
-typedef struct  s_map_chars_vali {
-	bool	player;
-	bool    exit;
-	size_t  collectibles;
-}           t_map_chars_vali;
 
 typedef struct	s_offset {
 	int	x;

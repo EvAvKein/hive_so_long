@@ -58,5 +58,6 @@ bool	validate_map_path(t_game *game, size_t collectibles)
 		return (perr_titled("Map validation: Unreachable exit!\n")
 			&& !print_layout(replica, game->map->lines, 2));
 	game->progress.to_collect = collectibles;
+	free_layout(replica, game->map->lines);
 	return (1);
 }

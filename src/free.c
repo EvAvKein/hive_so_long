@@ -12,21 +12,23 @@
 
 #include "../include/so_long.h"
 
-static void	free_map(t_map	*map)
+void free_layout(char **layout, size_t lines)
 {
-	size_t		i;
+	size_t	i;
 
 	i = 0;
-	while (i < map->lines)
-		free(map->layout[i++]);
-	free(map->layout);
-	free(map);
+	while (i < lines)
+		free(layout[i++]);
+	free(layout);
 }
 
 int	clean_exit(t_game *game, bool exit_code)
 {
 	if (game->map)
-		free_map(game->map);
+	{
+		free_layout(game->map->layout, game->map->lines);
+		free(game->map);
+	}
 	exit(exit_code);
 	return (1);
 }

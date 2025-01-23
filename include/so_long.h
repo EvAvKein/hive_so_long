@@ -109,6 +109,7 @@ bool	adjacent_replace(char **layout, t_pos pos,
 char    direction_by_i(unsigned int i);
 char direction_by_offset(t_offset offset);
 
+void	free_layout(char **layout, size_t lines);
 int		clean_exit(t_game *game, bool exit_code);
 
 #endif

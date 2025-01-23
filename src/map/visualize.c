@@ -6,15 +6,15 @@ static void print_char_with_color(char c, int fd)
   if (c == NAVIGATED_CHAR)
     write(fd, "\033[0m", 4);
   else if (c == EMPTY_CHAR)
-    write(fd, "\033[37;1m", 8);
+    write(fd, "\033[37;1m", 7);
   else if (c == WALL_CHAR)
-    write(fd, "\033[31;1m", 8);
+    write(fd, "\033[31;1m", 7);
   else if (c == EXIT_CHAR)
-    write(fd, "\033[32;1m", 8);
+    write(fd, "\033[32;1m", 7);
   else if (c == PLAYER_CHAR)
-    write(fd, "\033[33;1m", 8);
+    write(fd, "\033[33;1m", 7);
   else if (c == COLLECTIBLE_CHAR)
-    write(fd, "\033[34;1m", 8);
+    write(fd, "\033[34;1m", 7);
   else
   {
     perr("BUG: print_char_with_color received invalid character: ");

@@ -19,6 +19,29 @@ static void	victory(t_game *game)
 	clean_exit(game, EXIT_SUCCESS);
 }
 
+static void	increment_move_counters(t_game *game)
+{
+	size_t	new_count;
+	char 	 *itoa;
+	char		*new_string;
+
+	if (game->progress.moves_str)
+		mlx_delete_image(game->mlx, game->progress.moves_str);
+	new_count = ++game->progress.moves;
+	ft_printf("Moves: %d\n", new_count);
+	itoa = ft_itoa(new_count);
+	new_string = ft_strjoin("Moves: ", ft_itoa(new_count));
+	if (!itoa || !new_string)
+	{
+		if (itoa)
+			free(itoa);
+		game->progress.moves_str = mlx_put_string(game->mlx, "ERROR: Memory allocation failed\n", 0, 0);
+		return ;
+	}
+  game->progress.moves_str = mlx_put_string(game->mlx, new_string, 0, 0);
+	free(new_string);
+}
+
 bool	move_player(t_game *game, char direction)
 {
 	t_pos		player_pos;
@@ -27,10 +50,10 @@ bool	move_player(t_game *game, char direction)
 	update_pos(&player_pos,
 		(game->images.player->instances->x - game->images.wall->instances->x) / BPP,
 		(game->images.player->instances->y - game->images.wall->instances->y) / BPP);
-		ahead = adjacent_entity(game->map->layout, player_pos, direction);
+	ahead = adjacent_entity(game->map->layout, player_pos, direction);
 	if (ahead.chr == WALL_CHAR)
 		return (0);
-	ft_printf("Moves: %d\n", ++game->progress.moves);
+	increment_move_counters(game);
 	if (ahead.chr == COLLECTIBLE_CHAR && game->progress.to_collect--)
 		image_instance_by_pos(game->images.collectible,
 			(t_offset){.x = game->images.wall->instances->x / BPP,

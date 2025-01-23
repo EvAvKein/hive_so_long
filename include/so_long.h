@@ -42,6 +42,7 @@ typedef struct	s_offset {
 }			t_offset;
 
 typedef struct	s_progress {
+	mlx_image_t		*moves_str;
 	size_t	moves;
 	size_t	to_collect;
 	size_t	standing_on_exit;

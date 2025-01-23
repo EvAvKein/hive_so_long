@@ -10,6 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef MLX_SO_LONG_H
+# define MLX_SO_LONG_H
+
 # include "../MLX42/include/MLX42/MLX42.h"
 
 typedef struct	s_images {
@@ -22,3 +25,5 @@ typedef struct	s_images {
 
 void    keyhook(mlx_key_data_t keydata, void *param);
 void    resizehook(int width, int height, void* param);
+
+#endif

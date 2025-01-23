@@ -10,6 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef PERRORS_H
+# define PERRORS_H
+
 // All functions:
 // - Print to stder (fd 2)
 // - Return the number 1 (to support one-lining in conditional syntax)
@@ -24,3 +27,5 @@ int	perr(char *text);
 int	perrno(char *precolon, int errnum);
 
 int	perrno_mlx();
+
+#endif

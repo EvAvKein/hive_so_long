@@ -87,7 +87,6 @@ t_entity	adjacent_entity(char **layout, t_pos pos, char direction);
 bool	for_each_tile(t_game *game,
 			bool(*func)(t_game *game, t_entity c, void *extras),
 			void *extras);
-bool	print_layout(char **layout, size_t lines, int fd);
 
 bool	update_pos_if_player(t_game *game, t_entity c, void *extras);
 bool	init_player_pos(t_game *game, t_pos *nav_pos);
@@ -95,7 +94,10 @@ bool	init_player_pos(t_game *game, t_pos *nav_pos);
 bool	save_map(t_game *game, char *map_path);
 bool	layoutdup_unchunked_swap(t_map *map, char ***dest);
 
-bool	print_layout_and_pause(char **layout, size_t lines, int fd, t_journey *journey);
+bool	print_layout(char **layout, size_t lines, int fd);
+bool	print_journey(t_journey *journey, int fd);
+bool	print_layout_journey_and_pause(
+	char **layout, t_journey *journey, int fd);
 bool	validate_map_contents(t_game *game, size_t *collectibles);
 bool	validate_map_path(t_game *game, size_t collectible);
 

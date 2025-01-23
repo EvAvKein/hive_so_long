@@ -23,8 +23,7 @@ static void	navigate(char **replica, t_pos pos, t_journey *journey)
 	if (chr == WALL_CHAR || chr == NAVIGATED_CHAR)
 		return ;
 	if (journey->visualize)
-		journey->visualize = print_layout_and_pause(replica, journey->map_lines,
-		1, journey);
+		journey->visualize = print_layout_journey_and_pause(replica, journey, 1);
 	if (chr == COLLECTIBLE_CHAR)
 		journey->collected++;
 	if (chr == EXIT_CHAR)
@@ -58,6 +57,8 @@ bool	validate_map_path(t_game *game, size_t collectibles)
 		return (perr_titled("Map validation: Unreachable exit!\n")
 			&& !print_layout(replica, game->map->lines, 2));
 	game->progress.to_collect = collectibles;
+	print_layout(replica, game->map->lines, 1);
+	print_journey(&journey, 1);
 	free_layout(replica, game->map->lines);
 	return (1);
 }

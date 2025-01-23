@@ -45,11 +45,8 @@ bool	print_layout(char **layout, size_t lines, int fd)
 	return (1);
 }
 
-bool print_layout_and_pause(char **layout, size_t lines, int fd, t_journey *journey)
+bool print_journey(t_journey *journey, int fd)
 {
-  char  terminal[1];
-
-  print_layout(layout, lines, fd);
   if (journey)
   {
     write (fd, "Exit ", 5);
@@ -61,7 +58,18 @@ bool print_layout_and_pause(char **layout, size_t lines, int fd, t_journey *jour
     write(fd, "collected: ", 11);
     ft_putnbr_fd(journey->collected, fd);
     write(fd, "\n", 1);
+    return (1);
   }
+  return (0);
+}
+
+bool print_layout_journey_and_pause(
+  char **layout, t_journey *journey, int fd)
+{
+  char  terminal[1];
+
+  print_layout(layout, journey->map_lines, fd);
+  print_journey(journey, fd);
   write(fd, "\033[37m(Type S to skip visualizer)\n\033[0m", 38);
   read(0, &terminal, 1);
   return (terminal[0] != 'S' && terminal[0] != 's');

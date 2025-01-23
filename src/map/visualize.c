@@ -68,7 +68,7 @@ bool print_layout_journey_and_pause(
 {
   char  terminal[1];
 
-  print_layout(layout, journey->map_lines, fd);
+  print_layout(layout, journey->visualizing_lines, fd);
   print_journey(journey, fd);
   write(fd, "\033[37m(Type S to skip visualizer)\n\033[0m", 38);
   read(0, &terminal, 1);

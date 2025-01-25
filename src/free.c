@@ -22,6 +22,19 @@ void free_layout(char **layout, size_t lines)
 	free(layout);
 }
 
+void free_foes(t_foe *foes)
+{
+	t_foe	*next;
+
+	while (foes)
+	{
+	//	printf("free %p!\n", foes);
+		next = foes->next;
+		free(foes);
+		foes = next;
+	}
+}
+
 int	clean_exit(t_game *game, bool exit_code)
 {
 	if (game->map)
@@ -29,6 +42,24 @@ int	clean_exit(t_game *game, bool exit_code)
 		free_layout(game->map->layout, game->map->lines);
 		free(game->map);
 	}
+	if (game->progress.moves_str)
+		mlx_delete_image(game->mlx, game->progress.moves_str);
+	if (game->foes)
+		free_foes(game->foes);
 	exit(exit_code);
 	return (1);
+}
+
+void	victory(t_game *game)
+{
+	mlx_terminate(game->mlx);
+	ft_printf("You've won! :)\n");
+	clean_exit(game, EXIT_SUCCESS);
+}
+
+void	defeat(t_game *game)
+{
+	mlx_terminate(game->mlx);
+	ft_printf("You've lost :(\n");
+	clean_exit(game, EXIT_SUCCESS);
 }

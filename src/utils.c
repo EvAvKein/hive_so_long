@@ -63,8 +63,11 @@ char	direction_by_i(unsigned int i)
 
 char direction_by_offset(t_offset offset)
 {
-	if ((offset.x && offset.y) || (!offset.x && !offset.y))
-		return (!perr("BUG: direction_by_offset received two/zero offsets\n"));
+	if (!offset.x && !offset.y)
+		return ('\0');
+		//return (!perr("direction_by_offset received zero offsets\n"));
+	if (offset.x && offset.y)
+		return (!perr("BUG: direction_by_offset received two offsets\n"));
 	if (offset.x < 0)
 		return (LEFT_CHAR);
 	if (offset.x > 0)

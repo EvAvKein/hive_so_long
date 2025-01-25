@@ -15,6 +15,8 @@ static void print_char_with_color(char c, int fd)
     write(fd, "\033[33;1m", 7);
   else if (c == COLLECTIBLE_CHAR)
     write(fd, "\033[34;1m", 7);
+  else if (c == FOE_CHAR)
+    write(fd, "\033[35;1m", 7);
   else
   {
     perr("BUG: print_char_with_color received invalid character: ");

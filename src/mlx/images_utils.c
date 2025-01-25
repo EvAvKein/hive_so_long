@@ -59,6 +59,7 @@ bool offset_images_within_bounds(t_game *game, char direction)
   offset_image_instances(game->images.wall, offset.x, offset.y);
   offset_image_instances(game->images.player, offset.x, offset.y);
   offset_image_instances(game->images.collectible, offset.x, offset.y);
+  offset_image_instances(game->images.foe, offset.x, offset.y);
   return (1);
 }
 
@@ -86,4 +87,24 @@ t_offset calc_offset(t_game *game)
 		offset.y = clamp((0 - game->map->lines + (game->screen.height / BPP)),
 				(0 - player.y + (game->screen.height / BPP / 2)), 0);
 	return (offset);
+}
+
+void move_image_by_diff (mlx_instance_t *instance, t_pos src, t_pos dest)
+{
+  t_offset distance;
+
+  distance = (t_offset){.x = (int)dest.x - src.x, .y = (int)dest.y - src.y};
+  printf("dest %lu, %lu, src %lu, %lu, distance %d, %d\n", dest.x, dest.y, src.x, src.y, distance.x, distance.y);
+  if (!distance.x && !distance.y)
+    return ;
+  if (distance.y)
+  {
+    printf("increase distance.y (%d) by %d * BPP\n", instance->y, distance.y);
+    instance->y += (int32_t)(distance.y * BPP);
+  }
+  else
+  {
+    printf("increase distance.x (%d) by %d * BPP\n", instance->x, distance.x);
+    instance->x += (int32_t)(distance.x * BPP); 
+  }
 }

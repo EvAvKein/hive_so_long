@@ -96,9 +96,13 @@ void    keyhook(mlx_key_data_t e, void *param)
     movement.x = 0 - (e.key == MLX_KEY_A) + (e.key == MLX_KEY_D);
     if (movement.x && movement.y)
         return ((void)!perr("Diagonal movement not supported\n"));
-    if (movement.x && move_player(game, direction_by_offset(movement)))
-        game->images.player->instances->x += (movement.x * BPP);
-    if (movement.y && move_player(game, direction_by_offset(movement)))
-        game->images.player->instances->y += (movement.y * BPP);
-    //print_layout(game->map->layout, game->map->lines, 1);
+    printf("movement: %d, %d\n", movement.x, movement.y);
+    if (movement.x)
+        move_player(game, direction_by_offset(movement));
+    if (movement.y)
+        move_player(game, direction_by_offset(movement));
+    printf("player moved!\n");
+    print_layout(game->map->layout, game->map->lines, 1);
+    play_foes(game);
+    print_layout(game->map->layout, game->map->lines, 1);
 }

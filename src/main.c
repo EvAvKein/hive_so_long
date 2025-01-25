@@ -35,15 +35,17 @@ int	main(int argc, char **argv)
 	if (argc > 2)
 		return (perr("Just one map please :(\n"));
 	game = (t_game){
+		.mlx = NULL,
 		.map = NULL,
+		.foes = NULL,
 		.images = {
 			.background = NULL,
 			.wall = NULL,
 			.collectible = NULL,
 			.exit = NULL,
-			.player = NULL
+			.player = NULL,
+			.foe = NULL
 		},
-		.mlx = NULL,
 		.progress = (t_progress){.standing_on_exit = 0, .to_collect = 0,
 			.attacks = 0, .moves = 0, .moves_str = NULL},
 		.screen = (t_screen){.width = INIT_WIDTH, .height = INIT_HEIGHT}

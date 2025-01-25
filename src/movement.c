@@ -12,12 +12,6 @@
 
 #include "../include/so_long.h"
 
-static void	victory(t_game *game)
-{
-	mlx_terminate(game->mlx);
-	ft_printf("Success!\n");
-	clean_exit(game, EXIT_SUCCESS);
-}
 
 static void	increment_move_counters(t_game *game)
 {
@@ -39,6 +33,7 @@ static void	increment_move_counters(t_game *game)
 		return ;
 	}
   game->progress.moves_str = mlx_put_string(game->mlx, new_string, 0, 0);
+	free(itoa);
 	free(new_string);
 }
 
@@ -57,6 +52,7 @@ static bool collect_collectible(t_game *game, t_entity *collectible)
 	img->enabled = 0;
 	game->progress.to_collect -= 1;
 	game->progress.attacks += 1;
+	create_foe(game, collectible->pos);
 	return (1);
 }
 
@@ -71,6 +67,11 @@ bool	move_player(t_game *game, char direction)
 	ahead = adjacent_entity(game->map->layout, player_pos, direction);
 	if (ahead.chr == WALL_CHAR)
 		return (0);
+	if (ahead.chr == FOE_CHAR)
+	{
+		defeat(game);
+		return (0);
+	}
 	increment_move_counters(game);
 	if (ahead.chr == COLLECTIBLE_CHAR)
 		collect_collectible(game, &ahead);
@@ -80,8 +81,14 @@ bool	move_player(t_game *game, char direction)
 	game->map->layout[player_pos.y][player_pos.x] = EMPTY_CHAR;
 	if (game->progress.standing_on_exit && game->progress.standing_on_exit--)
 		game->map->layout[player_pos.y][player_pos.x] = EXIT_CHAR;
-	adjacent_replace(game->map->layout, player_pos, direction, PLAYER_CHAR);
+	game->map->layout[ahead.pos.y][ahead.pos.x] = PLAYER_CHAR;
+  game->images.player->instances->x += ((ahead.pos.x - player_pos.x) * BPP);
+  game->images.player->instances->y += ((ahead.pos.y - player_pos.y) * BPP);
 	player_pos = ahead.pos;
+  // if (game->images.foe && game->images.foe->instances)
+  //   printf("foe after offset %d, %d\n", game->images.foe->instances->x, game->images.foe->instances->y);
 	offset_images_within_bounds(game, direction);
+  // if (game->images.foe && game->images.foe->instances)
+  //   printf("foe after offset %d, %d\n", game->images.foe->instances->x, game->images.foe->instances->y);
 	return (1);
 }

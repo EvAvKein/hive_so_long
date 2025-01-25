@@ -29,6 +29,9 @@
 #  define VISUALIZE 0
 # endif
 
+# define FOE_CHAR			'F'
+# define FOE_PENDING    8
+
 # define LAYOUT_MALLOC_CHUNK 512
 
 #endif

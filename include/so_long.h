@@ -59,6 +59,15 @@ typedef struct	s_entity {
 	t_pos		pos;
 }				t_entity;
 
+typedef struct	s_foe {
+	unsigned int	pending;
+	t_pos			pos;
+	int			standing_on_collectible;
+	int			standing_on_exit;
+	mlx_instance_t	*img;
+	struct s_foe		*next;
+}				t_foe;
+
 typedef struct 		s_map 	{
 	char  			**layout;
 	size_t			width;
@@ -73,6 +82,7 @@ typedef	struct	s_screen {
 typedef struct		s_game {
 	mlx_t			*mlx;
 	t_map			*map;
+	t_foe			*foes;
 	t_images		images;
 	t_screen		screen;
 	t_progress		progress;
@@ -83,7 +93,11 @@ bool	draw_images(t_game *game);
 bool	move_player(t_game *game, char direction);
 t_offset calc_offset(t_game *game);
 
+bool create_foe(t_game *game, t_pos pos);
+bool play_foes(t_game *game);
+
 bool offset_images_within_bounds(t_game *game, char direction);
+void move_image_by_diff (mlx_instance_t *instance, t_pos src, t_pos dest);
 t_entity	adjacent_entity(char **layout, t_pos pos, char direction);
 
 bool	for_each_tile(t_game *game,
@@ -108,12 +122,12 @@ int	clamp(int min, int num, int max);
 bool    update_pos(t_pos *pos, size_t new_x, size_t new_y);
 t_pos	adjacent_pos(t_pos pos, char direction);
 char	adjacent_char(char **layout, t_pos pos, char direction);
-bool	adjacent_replace(char **layout, t_pos pos,
-			char direction, char replacement);
 char    direction_by_i(unsigned int i);
 char direction_by_offset(t_offset offset);
 
 void	free_layout(char **layout, size_t lines);
 int		clean_exit(t_game *game, bool exit_code);
+void	victory(t_game *game);
+void	defeat(t_game *game);
 
 #endif

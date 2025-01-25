@@ -24,9 +24,9 @@ t_pos	adjacent_pos(t_pos pos, char direction)
 		pos.x += 1;
 	else
 	{
-		perr("BUG: adjacent_char got invalid direction :");
-		perr(&direction);
-		perr("\n");
+		//perr("BUG: adjacent_pos got invalid direction: '");
+		//perr(&direction);
+		//perr("'\n");
 	}
 	return (pos);
 }
@@ -53,18 +53,6 @@ char	adjacent_char(char **layout, t_pos pos, char direction)
 	else
 		return (perr("BUG: adjacent_char got invalid direction\n")
 			&& perr(&direction) && !perr("\n"));
-}
-
-bool	adjacent_replace(char **layout, t_pos pos, char direction,
-			char replacement)
-{
-	t_pos	target_pos;
-	char	*target;
-
-	target_pos = adjacent_pos(pos, direction);
-	target = &layout[target_pos.y][target_pos.x];
-	*target = replacement;
-	return (1);
 }
 
 // bool	adjacent_move(char **layout, t_entity *entity,

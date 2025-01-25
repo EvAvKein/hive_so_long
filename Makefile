@@ -28,6 +28,8 @@ SRC_FILES = main.c \
 			utils.c \
 			utilss.c \
 			math.c \
+			movement.c \
+			foes.c \
 	  		map/adjacent.c \
 	  		map/save_map.c \
 	  		map/validate_map_contents.c \
@@ -35,7 +37,6 @@ SRC_FILES = main.c \
 	  		map/visualize.c \
 			mlx/images_init.c \
 			mlx/images_utils.c \
-			movement.c \
 			mlx/hooks.c
 	  
 
@@ -53,7 +54,7 @@ $(MLX_LIB):
 	@cd $(MLX_DIR) && cmake -B build && cmake --build build -j4
 
 %.o: %.c
-	cc $(COMPILE_FLAGS) -c $< -o $@ -DVISUALIZE=$(if $(VISUALIZE),1,0)
+	cc $(COMPILE_FLAGS) -c $< -o $@ -DVISUALIZE=$(if $(VISUALIZE),1,0) -g
 
 $(NAME): $(LIBFT_LIB) $(MLX_LIB) $(OBJ)
 	cc $(COMPILE_FLAGS) $(OBJ) $(LIBFT_LIB) $(COMPILE_WITH_MLX) -o $(NAME)

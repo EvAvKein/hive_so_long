@@ -21,6 +21,7 @@ static mlx_image_t *load_image(mlx_t *mlx, char *path)
 	if (!texture)
 		return (NULL);
 	img = mlx_texture_to_image(mlx, texture);
+	mlx_delete_texture(texture);
 	return (img);
 }
 
@@ -41,6 +42,9 @@ static bool load_images(t_game *game)
 	game->images.player = load_image(game->mlx, "textures/player.png");
 	if (!game->images.player)
 		return (!perr("Failed to load player image\n"));
+	game->images.foe = load_image(game->mlx, "textures/foe.png");
+	if (!game->images.foe)
+		return (!perr("Failed to load foe image\n"));
 	return (1);
 }
 

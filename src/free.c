@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 19:24:47 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/15 13:46:51 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/27 10:18:36 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ int	clean_exit(t_game *game, bool exit_code)
 		free_layout(game->map->layout, game->map->lines);
 		free(game->map);
 	}
-	if (game->progress.moves_str)
-		mlx_delete_image(game->mlx, game->progress.moves_str);
 	if (game->foes)
 		free_foes(game->foes);
 	exit(exit_code);

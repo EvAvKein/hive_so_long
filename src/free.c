@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 19:24:47 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/27 10:18:36 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/27 19:55:38 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void free_foes(t_foe *foes)
 
 	while (foes)
 	{
-	//	printf("free %p!\n", foes);
 		next = foes->next;
 		free(foes);
 		foes = next;

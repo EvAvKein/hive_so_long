@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:00:09 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/15 13:58:13 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/27 19:56:15 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ char direction_by_offset(t_offset offset)
 {
 	if (!offset.x && !offset.y)
 		return ('\0');
-		//return (!perr("direction_by_offset received zero offsets\n"));
 	if (offset.x && offset.y)
 		return (!perr("BUG: direction_by_offset received two offsets\n"));
 	if (offset.x < 0)

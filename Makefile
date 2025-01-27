@@ -6,13 +6,11 @@
 #    By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/11 09:31:47 by ekeinan           #+#    #+#              #
-#    Updated: 2025/01/15 14:44:37 by ekeinan          ###   ########.fr        #
+#    Updated: 2025/01/27 15:59:20 by ekeinan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
-CHECKER_NAME = checker_ekeinan
-BONUS_NAME = .bonus
 
 LIBFT_DIR = libft_full
 LIBFT_LIB = $(LIBFT_DIR)/libft_full.a
@@ -27,10 +25,10 @@ SRC_FILES = main.c \
 	 		free.c \
 			utils.c \
 			utilss.c \
+			adjacent.c \
 			math.c \
 			movement.c \
 			foes.c \
-	  		map/adjacent.c \
 	  		map/save_map.c \
 	  		map/validate_map_contents.c \
 	  		map/validate_map_path.c \
@@ -65,7 +63,7 @@ visualize: $(OBJ)
 
 clean:
 	@make -C $(LIBFT_DIR) $@ --no-print-directory
-	@rm -f $(CHECKER_NAME) $(OBJ)
+	@rm -f $(OBJ)
 
 fclean: clean
 	@make -C $(LIBFT_DIR) $@ --no-print-directory

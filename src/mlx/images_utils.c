@@ -89,22 +89,21 @@ t_offset calc_offset(t_game *game)
 	return (offset);
 }
 
-void move_foe_by_diff(mlx_image_t *foe_img, size_t img_i, t_pos src, t_pos dest)
+void update_foe_pos(t_foe *foe, mlx_image_t *foe_img, t_pos dest)
 {
   t_offset distance;
 
-  distance = (t_offset){.x = (int)dest.x - src.x, .y = (int)dest.y - src.y};
-  printf("dest %lu, %lu, src %lu, %lu, distance %d, %d\n", dest.x, dest.y, src.x, src.y, distance.x, distance.y);
+  distance = (t_offset){.x = (int)dest.x - foe->pos.x, .y = (int)dest.y - foe->pos.y};
   if (!distance.x && !distance.y)
     return ;
   if (distance.y)
   {
-    printf("increase distance.y (%d) by %d * BPP\n", foe_img->instances[img_i].y, distance.y);
-    foe_img->instances[img_i].y += (int32_t)(distance.y * BPP);
+    foe_img->instances[foe->img_i].y += (int32_t)(distance.y * BPP);
+    foe->pos.x = dest.x;
   }
   else
   {
-    printf("increase distance.x (%d) by %d * BPP\n", foe_img->instances[img_i].x, distance.x);
-    foe_img->instances[img_i].x += (int32_t)(distance.x * BPP); 
+    foe_img->instances[foe->img_i].x += (int32_t)(distance.x * BPP); 
+    foe->pos.y = dest.y;
   }
 }

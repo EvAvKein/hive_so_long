@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:49:11 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/15 15:28:23 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/27 18:01:09 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static bool	launch_game(t_game *game)
 	if (!game->mlx)
 		return (clean_exit(game, EXIT_FAILURE));
 	mlx_key_hook(game->mlx, keyhook, game);
-	mlx_resize_hook(game->mlx, resizehook, game);	
 	draw_images(game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);

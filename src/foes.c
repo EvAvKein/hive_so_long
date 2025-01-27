@@ -26,21 +26,25 @@ bool create_foe(t_game *game, t_pos pos)
   return (1);
 }
 
-void destroy_foe(t_game *game, t_foe *foe)
+void destroy_foe(t_game *game, t_offset *player_move)
 {
-  t_foe *foe_node;
-
-  if (game->foes == foe)
-    game->foes = foe->next;
-  else 
-  {
-    foe_node = game->foes;
-    while (foe_node && foe_node->next != foe)
-      foe_node = foe_node->next;
-    if (foe_node && foe_node->next == foe)
-      foe_node->next = foe->next;
-  }
-  free(foe);
+  t_foe *foe;
+  mlx_instance_t *img;
+	
+  foe = adjacent_foe(game, player_move);
+  if (!foe)
+    return ;
+  img = game->images.foe->instances + foe->img_i;
+  if (!img->enabled)
+    perr("BUG: destroy_foe - foe already destroyed\n");
+  if (foe->standing_on_collectible)
+    game->map->layout[foe->pos.y][foe->pos.x] = COLLECTIBLE_CHAR;
+  else if (foe->standing_on_exit)
+    game->map->layout[foe->pos.y][foe->pos.x] = EXIT_CHAR;
+  else
+    game->map->layout[foe->pos.y][foe->pos.x] = EMPTY_CHAR;
+  game->images.foe->instances[foe->img_i].enabled = false;
+  game->progress.attacks--;
 }
 
 static void move_foe(t_game *game, t_foe *foe,
@@ -67,7 +71,7 @@ static void move_foe(t_game *game, t_foe *foe,
     foe->standing_on_collectible = true;
   if (ahead.chr == EXIT_CHAR)
     foe->standing_on_exit = true;
-  move_foe_by_diff(game->images.foe, foe->img_i, foe->pos, ahead.pos);
+  update_foe_pos(foe, game->images.foe, ahead.pos);
   game->map->layout[ahead.pos.y][ahead.pos.x] = FOE_CHAR;
   foe->pos = ahead.pos;
 }
@@ -76,17 +80,16 @@ static void play_foe(t_game *game, t_foe *foe, t_pos player, t_offset offset)
 {
   int  img_i;
   t_offset distance; 
-
   if (foe->pending && foe->pending--)
   {
-    printf("pending...\n");
+    // printf("pending...\n");
     return ;
   }
   if (foe->img_i < 0)
   {
     if (game->map->layout[foe->pos.y][foe->pos.x] == EMPTY_CHAR)
     {
-      printf("drawing foe %lu, %lu, offset %d, %d\n", foe->pos.x, foe->pos.y, offset.x, offset.y);
+      // printf("drawing foe %lu, %lu, offset %d, %d\n", foe->pos.x, foe->pos.y, offset.x, offset.y);
       img_i = mlx_image_to_window(game->mlx, game->images.foe,
         foe->pos.x * BPP + offset.x, foe->pos.y * BPP + offset.y);
       if (img_i < 0)
@@ -94,6 +97,11 @@ static void play_foe(t_game *game, t_foe *foe, t_pos player, t_offset offset)
       foe->img_i = img_i;
       game->map->layout[foe->pos.y][foe->pos.x] = FOE_CHAR;
     }
+    return ;
+  }
+  // printf("alive status: %i\n", game->images.foe->instances[foe->img_i].enabled);
+  if (!game->images.foe->instances[foe->img_i].enabled)
+  {
     return ;
   }
   distance = (t_offset){

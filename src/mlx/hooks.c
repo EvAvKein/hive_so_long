@@ -6,77 +6,11 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 19:42:06 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/15 16:53:13 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/27 19:12:02 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/so_long.h"
-
-typedef struct s_resize_data {
-    t_offset    prev_offset;
-    t_offset    new_offset;
-    mlx_image_t *img;
-    char        chr;
-}           t_resize_data;
-
-static bool    resize_adjust_image(t_game *game, t_entity c, void *extras)
-{
-    t_resize_data *data;
-    mlx_instance_t *instance;
-
-    (void) game;
-    data = (t_resize_data *)extras;
-    if (c.chr == EMPTY_CHAR)
-    {
-        data->img->instances[c.pos.y * (c.pos.x + 1) + c.pos.x].x = (data->new_offset.x + c.pos.x) * BPP; 
-        data->img->instances[c.pos.y * (c.pos.x + 1) + c.pos.x].y = (data->new_offset.y + c.pos.y) * BPP;
-    }
-
-    instance = image_instance_by_pos(data->img, data->prev_offset, c.pos);
-    if (instance == NULL)
-        return (false);
-
-    instance->x = data->new_offset.x;
-    instance->y = data->new_offset.y;
-    return (true);
-    //
-    // find image equivalent of tile using coordinates
-    //
-}
-
-static void    resize_adjust_images(t_game *game, t_resize_data *data)
-{
-    *data = (t_resize_data){.img = game->images.background, .chr = EMPTY_CHAR};
-    for_each_tile(game, resize_adjust_image, data);
-    *data = (t_resize_data){.img = game->images.wall, .chr = WALL_CHAR};
-    for_each_tile(game, resize_adjust_image, data);
-    *data = (t_resize_data){.img = game->images.collectible, .chr = COLLECTIBLE_CHAR};
-    for_each_tile(game, resize_adjust_image, data);
-    *data = (t_resize_data){.img = game->images.player, .chr = PLAYER_CHAR};
-    for_each_tile(game, resize_adjust_image, data);
-    *data = (t_resize_data){.img = game->images.exit, .chr = EXIT_CHAR};
-    for_each_tile(game, resize_adjust_image, data);
-}
-
-void    resizehook(int width, int height, void* param)
-{ 
-    t_game  *game;
-    t_resize_data data;
-
-    game = param;
-    game->screen.height = height;
-    game->screen.width = width;
-    data = (t_resize_data) {
-        .img = NULL,
-        .chr = '\0',
-        .prev_offset = (t_offset){
-            .x = game->images.wall->instances->x,
-            .y = game->images.wall->instances->y
-        },
-        .new_offset = calc_offset(game)
-    };
-    resize_adjust_images(game, &data);
-}
 
 void    keyhook(mlx_key_data_t e, void *param)
 {
@@ -96,13 +30,15 @@ void    keyhook(mlx_key_data_t e, void *param)
     movement.x = 0 - (e.key == MLX_KEY_A) + (e.key == MLX_KEY_D);
     if (movement.x && movement.y)
         return ((void)!perr("Diagonal movement not supported\n"));
-    printf("movement: %d, %d\n", movement.x, movement.y);
+    if (!movement.x && !movement.y)
+        return ;
+    if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT_SHIFT)
+        && game->progress.attacks)
+        destroy_foe(game, &movement);
     if (movement.x)
         move_player(game, direction_by_offset(movement));
     if (movement.y)
         move_player(game, direction_by_offset(movement));
-    printf("player moved!\n");
-    print_layout(game->map->layout, game->map->lines, 1);
     play_foes(game);
     print_layout(game->map->layout, game->map->lines, 1);
 }

@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:38:38 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/15 13:40:25 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/27 16:35:55 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,19 +76,15 @@ bool	move_player(t_game *game, char direction)
 	if (ahead.chr == COLLECTIBLE_CHAR)
 		collect_collectible(game, &ahead);
 	if (ahead.chr == EXIT_CHAR && ++game->progress.standing_on_exit
-			&& !game->progress.to_collect)
-			victory(game);
+		&& !game->progress.to_collect)
+		victory(game);
 	game->map->layout[player_pos.y][player_pos.x] = EMPTY_CHAR;
-	if (game->progress.standing_on_exit && game->progress.standing_on_exit--)
+	if (ahead.chr != EXIT_CHAR && game->progress.standing_on_exit && game->progress.standing_on_exit--)
 		game->map->layout[player_pos.y][player_pos.x] = EXIT_CHAR;
 	game->map->layout[ahead.pos.y][ahead.pos.x] = PLAYER_CHAR;
-  game->images.player->instances->x += ((ahead.pos.x - player_pos.x) * BPP);
-  game->images.player->instances->y += ((ahead.pos.y - player_pos.y) * BPP);
+	game->images.player->instances->x += ((ahead.pos.x - player_pos.x) * BPP);
+	game->images.player->instances->y += ((ahead.pos.y - player_pos.y) * BPP);
 	player_pos = ahead.pos;
-  // if (game->images.foe && game->images.foe->instances)
-  //   printf("foe after offset %d, %d\n", game->images.foe->instances->x, game->images.foe->instances->y);
 	offset_images_within_bounds(game, direction);
-  // if (game->images.foe && game->images.foe->instances)
-  //   printf("foe after offset %d, %d\n", game->images.foe->instances->x, game->images.foe->instances->y);
 	return (1);
 }

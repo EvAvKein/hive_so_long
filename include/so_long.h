@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:42:52 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/27 10:07:05 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/27 16:48:40 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,10 @@ t_offset calc_offset(t_game *game);
 
 bool create_foe(t_game *game, t_pos pos);
 bool play_foes(t_game *game);
+void destroy_foe(t_game *game, t_offset *player_move);
 
 bool offset_images_within_bounds(t_game *game, char direction);
-void move_foe_by_diff(mlx_image_t *foe_img, size_t img_i, t_pos src, t_pos dest);
+void update_foe_pos(t_foe *foe, mlx_image_t *foe_img, t_pos dest);
 t_entity	adjacent_entity(char **layout, t_pos pos, char direction);
 
 bool	for_each_tile(t_game *game,
@@ -122,6 +123,7 @@ int	clamp(int min, int num, int max);
 bool    update_pos(t_pos *pos, size_t new_x, size_t new_y);
 t_pos	adjacent_pos(t_pos pos, char direction);
 char	adjacent_char(char **layout, t_pos pos, char direction);
+t_foe	*adjacent_foe(t_game *game, t_offset *player_move);
 char    direction_by_i(unsigned int i);
 char direction_by_offset(t_offset offset);
 

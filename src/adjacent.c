@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 19:36:20 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/27 19:10:36 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/27 20:29:53 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,6 @@ t_pos	adjacent_pos(t_pos pos, char direction)
 		pos.x -= 1;
 	else if (direction == RIGHT_CHAR)
 		pos.x += 1;
-	else
-	{
-		//perr("BUG: adjacent_pos got invalid direction: '");
-		//perr(&direction);
-		//perr("'\n");
-	}
 	return (pos);
 }
 
@@ -58,20 +52,24 @@ char	adjacent_char(char **layout, t_pos pos, char direction)
 
 t_foe	*adjacent_foe(t_game *game, t_offset *player_move)
 {
-	t_offset  img_offset;
-	t_pos	player_pos;
-	t_pos	player_dest;
-	t_foe *foe_node;
-	
-	img_offset = (t_offset){.y = game->images.wall->instances->y, .x = game->images.wall->instances->x};
-	player_pos = (t_pos){.x = (game->images.player->instances->x - img_offset.x) / BPP,
-		.y = (game->images.player->instances->y - img_offset.y) / BPP};
-	player_dest = (t_pos){.x = player_pos.x + player_move->x, .y = player_pos.y + player_move->y};
-	foe_node = game->foes;
-	while (foe_node && (!game->images.foe->instances[foe_node->img_i].enabled
-		|| (player_dest.x != foe_node->pos.x && player_dest.y != foe_node->pos.y)))
-		foe_node = foe_node->next;
-	if (!foe_node)
-   		perr("BUG: destroy_foe - foe not found\n");
-	return (foe_node);
+	t_images img;
+	t_pos	pos;
+	t_pos	dest;
+	t_foe *foe;
+
+	img = game->images;
+	pos = (t_pos){
+		.x = (img.player->instances->x - game->images.wall->instances->x) / BPP,
+		.y = (img.player->instances->y - game->images.wall->instances->y) / BPP
+	};
+  	printf("pos %lu-%lu\n", pos.x, pos.y);
+	dest = (t_pos){.x = pos.x + player_move->x, .y = pos.y + player_move->y};
+  	printf("dest %lu-%lu\n", dest.x, dest.y);
+	foe = game->foes;
+	while (foe && (
+			(foe->img_i < 0 || !img.foe->instances[foe->img_i].enabled)
+			|| (dest.x != foe->pos.x || dest.y != foe->pos.y)))
+		foe = foe->next;
+  	printf("foe @ %lu-%lu\n", foe->pos.x, foe->pos.y);
+	return (foe);
 }

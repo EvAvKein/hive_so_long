@@ -79,29 +79,20 @@ static void play_foe(t_game *game, t_foe *foe, t_pos player, t_offset offset)
   int  img_i;
   t_offset distance; 
   if (foe->pending && foe->pending--)
-  {
-    // printf("pending...\n");
     return ;
-  }
   if (foe->img_i < 0)
   {
-    if (game->map->layout[foe->pos.y][foe->pos.x] == EMPTY_CHAR)
-    {
-      // printf("drawing foe %lu, %lu, offset %d, %d\n", foe->pos.x, foe->pos.y, offset.x, offset.y);
-      img_i = mlx_image_to_window(game->mlx, game->images.foe,
-        foe->pos.x * BPP + offset.x, foe->pos.y * BPP + offset.y);
-      if (img_i < 0)
-        return ((void)!perr("MLX foe drawing error\n"));
-      foe->img_i = img_i;
-      game->map->layout[foe->pos.y][foe->pos.x] = FOE_CHAR;
-    }
-    return ;
+    if (game->map->layout[foe->pos.y][foe->pos.x] != EMPTY_CHAR)
+      return ;
+    img_i = mlx_image_to_window(game->mlx, game->images.foe,
+      foe->pos.x * BPP + offset.x, foe->pos.y * BPP + offset.y);
+    if (img_i < 0)
+      return ((void)!perr("MLX foe drawing error\n"));
+    foe->img_i = img_i;
+    game->map->layout[foe->pos.y][foe->pos.x] = FOE_CHAR;
   }
-  // printf("alive status: %i\n", game->images.foe->instances[foe->img_i].enabled);
   if (!game->images.foe->instances[foe->img_i].enabled)
-  {
     return ;
-  }
   distance = (t_offset){
     .x = ((int)player.x - foe->pos.x), .y = ((int)player.y - foe->pos.y)};
   if (distance.y && (abs(distance.y) < abs(distance.x))) 

@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:42:52 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/15 15:43:31 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/27 10:07:05 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct	s_foe {
 	t_pos			pos;
 	int			standing_on_collectible;
 	int			standing_on_exit;
-	mlx_instance_t	*img;
+	int		img_i;
 	struct s_foe		*next;
 }				t_foe;
 
@@ -97,7 +97,7 @@ bool create_foe(t_game *game, t_pos pos);
 bool play_foes(t_game *game);
 
 bool offset_images_within_bounds(t_game *game, char direction);
-void move_image_by_diff (mlx_instance_t *instance, t_pos src, t_pos dest);
+void move_foe_by_diff(mlx_image_t *foe_img, size_t img_i, t_pos src, t_pos dest);
 t_entity	adjacent_entity(char **layout, t_pos pos, char direction);
 
 bool	for_each_tile(t_game *game,

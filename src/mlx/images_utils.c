@@ -89,7 +89,7 @@ t_offset calc_offset(t_game *game)
 	return (offset);
 }
 
-void move_image_by_diff (mlx_instance_t *instance, t_pos src, t_pos dest)
+void move_foe_by_diff(mlx_image_t *foe_img, size_t img_i, t_pos src, t_pos dest)
 {
   t_offset distance;
 
@@ -99,12 +99,12 @@ void move_image_by_diff (mlx_instance_t *instance, t_pos src, t_pos dest)
     return ;
   if (distance.y)
   {
-    printf("increase distance.y (%d) by %d * BPP\n", instance->y, distance.y);
-    instance->y += (int32_t)(distance.y * BPP);
+    printf("increase distance.y (%d) by %d * BPP\n", foe_img->instances[img_i].y, distance.y);
+    foe_img->instances[img_i].y += (int32_t)(distance.y * BPP);
   }
   else
   {
-    printf("increase distance.x (%d) by %d * BPP\n", instance->x, distance.x);
-    instance->x += (int32_t)(distance.x * BPP); 
+    printf("increase distance.x (%d) by %d * BPP\n", foe_img->instances[img_i].x, distance.x);
+    foe_img->instances[img_i].x += (int32_t)(distance.x * BPP); 
   }
 }

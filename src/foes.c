@@ -12,7 +12,7 @@ bool create_foe(t_game *game, t_pos pos)
   foe->pos = pos;
   foe->standing_on_collectible = false;
   foe->standing_on_exit = false;
-  foe->img = NULL;
+  foe->img_i = -1;
   foe->next = NULL;
   if (game->foes)
   {
@@ -67,7 +67,7 @@ static void move_foe(t_game *game, t_foe *foe,
     foe->standing_on_collectible = true;
   if (ahead.chr == EXIT_CHAR)
     foe->standing_on_exit = true;
-  move_image_by_diff(foe->img, foe->pos, ahead.pos);
+  move_foe_by_diff(game->images.foe, foe->img_i, foe->pos, ahead.pos);
   game->map->layout[ahead.pos.y][ahead.pos.x] = FOE_CHAR;
   foe->pos = ahead.pos;
 }
@@ -82,7 +82,7 @@ static void play_foe(t_game *game, t_foe *foe, t_pos player, t_offset offset)
     printf("pending...\n");
     return ;
   }
-  if (!foe->img)
+  if (foe->img_i < 0)
   {
     if (game->map->layout[foe->pos.y][foe->pos.x] == EMPTY_CHAR)
     {
@@ -91,7 +91,7 @@ static void play_foe(t_game *game, t_foe *foe, t_pos player, t_offset offset)
         foe->pos.x * BPP + offset.x, foe->pos.y * BPP + offset.y);
       if (img_i < 0)
         return ((void)!perr("MLX foe drawing error\n"));
-      foe->img = &game->images.foe->instances[img_i];
+      foe->img_i = img_i;
       game->map->layout[foe->pos.y][foe->pos.x] = FOE_CHAR;
     }
     return ;
@@ -118,11 +118,7 @@ bool  play_foes(t_game *game)
   init_player_pos(game, &player_pos);
   while (foe)
   {
-    if (foe->img)
-      printf("foe img before: %d, %d\n", foe->img->x, foe->img->y);
     play_foe(game, foe, player_pos, offset);
-    if (foe->img)
-      printf("foe img after: %d, %d\n", foe->img->x, foe->img->y);
     foe = foe->next;
   }
   return (1);

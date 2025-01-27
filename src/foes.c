@@ -31,12 +31,11 @@ void destroy_foe(t_game *game, t_offset *player_move)
   t_foe *foe;
   mlx_instance_t *img;
 	
+  game->progress.attacks--;
   foe = adjacent_foe(game, player_move);
   if (!foe)
-    return ;
+    return ; 
   img = game->images.foe->instances + foe->img_i;
-  if (!img->enabled)
-    perr("BUG: destroy_foe - foe already destroyed\n");
   if (foe->standing_on_collectible)
     game->map->layout[foe->pos.y][foe->pos.x] = COLLECTIBLE_CHAR;
   else if (foe->standing_on_exit)
@@ -44,7 +43,6 @@ void destroy_foe(t_game *game, t_offset *player_move)
   else
     game->map->layout[foe->pos.y][foe->pos.x] = EMPTY_CHAR;
   game->images.foe->instances[foe->img_i].enabled = false;
-  game->progress.attacks--;
 }
 
 static void move_foe(t_game *game, t_foe *foe,

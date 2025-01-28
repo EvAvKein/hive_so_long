@@ -29,20 +29,18 @@ bool create_foe(t_game *game, t_pos pos)
 void destroy_foe(t_game *game, t_offset *player_move)
 {
   t_foe *foe;
-  mlx_instance_t *img;
 	
   game->progress.attacks--;
   foe = adjacent_foe(game, player_move);
   if (!foe)
     return ; 
-  img = game->images.foe->instances + foe->img_i;
+  game->images.foe->instances[foe->img_i].enabled = false;
   if (foe->standing_on_collectible)
     game->map->layout[foe->pos.y][foe->pos.x] = COLLECTIBLE_CHAR;
   else if (foe->standing_on_exit)
     game->map->layout[foe->pos.y][foe->pos.x] = EXIT_CHAR;
   else
     game->map->layout[foe->pos.y][foe->pos.x] = EMPTY_CHAR;
-  game->images.foe->instances[foe->img_i].enabled = false;
 }
 
 static void move_foe(t_game *game, t_foe *foe,

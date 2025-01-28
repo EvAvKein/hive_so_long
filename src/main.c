@@ -46,7 +46,7 @@ int	main(int argc, char **argv)
 			.foe = NULL
 		},
 		.progress = (t_progress){.standing_on_exit = 0, .to_collect = 0,
-			.attacks = 0, .moves = 0, .moves_str = NULL},
+			.moves = 0, .attacks = 0, .moves_str = NULL, .attacks_str = NULL},
 		.screen = (t_screen){.width = INIT_WIDTH, .height = INIT_HEIGHT}
 	};
 	if (!save_map(&game, argv[1]))

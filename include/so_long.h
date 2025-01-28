@@ -36,6 +36,8 @@
 # define LEFT_CHAR			'L'
 # define RIGHT_CHAR			'R'
 
+# define FONT_HEIGHT		20
+
 typedef struct  s_map_chars_vali {
 	bool	player;
 	bool    exit;
@@ -56,9 +58,10 @@ typedef struct	s_offset {
 
 typedef struct	s_progress {
 	mlx_image_t		*moves_str;
+	mlx_image_t		*attacks_str;
 	size_t	moves;
-	size_t	to_collect;
 	size_t	attacks;
+	size_t	to_collect;
 	size_t	standing_on_exit;
 }			t_progress;
 
@@ -110,6 +113,7 @@ bool create_foe(t_game *game, t_pos pos);
 bool play_foes(t_game *game);
 void destroy_foe(t_game *game, t_offset *player_move);
 
+void	edit_attack_counters(t_game *game, size_t new_count);
 bool offset_images_within_bounds(t_game *game, char direction);
 void update_foe_pos(t_foe *foe, mlx_image_t *foe_img, t_pos dest);
 t_entity	adjacent_entity(char **layout, t_pos pos, char direction);

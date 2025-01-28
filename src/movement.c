@@ -29,10 +29,12 @@ static void	increment_move_counters(t_game *game)
 	{
 		if (itoa)
 			free(itoa);
-		game->progress.moves_str = mlx_put_string(game->mlx, "ERROR: Memory allocation failed\n", 0, 0);
+		game->progress.moves_str = mlx_put_string(game->mlx,
+			"ERROR: Memory allocation failed\n", 0, game->screen.height - FONT_HEIGHT);
 		return ;
 	}
-  game->progress.moves_str = mlx_put_string(game->mlx, new_string, 0, 0);
+  game->progress.moves_str = mlx_put_string(game->mlx, new_string,
+		0, game->screen.height - FONT_HEIGHT);
 	free(itoa);
 	free(new_string);
 }
@@ -50,8 +52,8 @@ static bool collect_collectible(t_game *game, t_entity *collectible)
 	if (!img)
 		return (!perr("Collect attempt failed to find corresponding image!!\n"));
 	img->enabled = 0;
-	game->progress.to_collect -= 1;
-	game->progress.attacks += 1;
+	game->progress.to_collect--;
+	edit_attack_counters(game, ++game->progress.attacks);
 	create_foe(game, collectible->pos);
 	return (1);
 }

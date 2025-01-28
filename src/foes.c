@@ -30,7 +30,7 @@ void destroy_foe(t_game *game, t_offset *player_move)
 {
   t_foe *foe;
 	
-  game->progress.attacks--;
+  edit_attack_counters(game, --game->progress.attacks);
   foe = adjacent_foe(game, player_move);
   if (!foe)
     return ; 

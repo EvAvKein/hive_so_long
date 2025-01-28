@@ -29,3 +29,27 @@ bool	init_player_pos(t_game *game, t_pos *nav_pos)
 	for_each_tile(game, update_pos_if_player, nav_pos);
 	return (nav_pos->x && nav_pos->y);
 }
+
+void	edit_attack_counters(t_game *game, size_t new_count)
+{
+	char 	 *itoa;
+	char		*new_string;
+
+	if (game->progress.attacks_str)
+		mlx_delete_image(game->mlx, game->progress.attacks_str);
+	itoa = ft_itoa(new_count);
+	new_string = ft_strjoin("Attacks: ", ft_itoa(new_count));
+	printf("hmmm\n");
+	if (!itoa || !new_string)
+	{
+		if (itoa)
+			free(itoa);
+		game->progress.attacks_str = mlx_put_string(game->mlx,
+			"ERROR: Memory allocation failed\n", 0, 0);
+		return ;
+	}
+	printf("attacks counter edited\n");
+  game->progress.attacks_str = mlx_put_string(game->mlx, new_string, 0, 0);
+	free(itoa);
+	free(new_string);
+}

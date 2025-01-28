@@ -40,5 +40,6 @@ void    keyhook(mlx_key_data_t e, void *param)
     if (movement.y)
         move_player(game, direction_by_offset(movement));
     play_foes(game);
-    print_layout(game->map->layout, game->map->lines, 1);
+    if (VISUALIZE)
+        print_layout(game->map->layout, game->map->lines, 1);
 }

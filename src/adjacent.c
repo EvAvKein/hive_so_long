@@ -62,14 +62,11 @@ t_foe	*adjacent_foe(t_game *game, t_offset *player_move)
 		.x = (img.player->instances->x - game->images.wall->instances->x) / BPP,
 		.y = (img.player->instances->y - game->images.wall->instances->y) / BPP
 	};
-  	printf("pos %lu-%lu\n", pos.x, pos.y);
 	dest = (t_pos){.x = pos.x + player_move->x, .y = pos.y + player_move->y};
-  	printf("dest %lu-%lu\n", dest.x, dest.y);
 	foe = game->foes;
 	while (foe && (
 			(foe->img_i < 0 || !img.foe->instances[foe->img_i].enabled)
 			|| (dest.x != foe->pos.x || dest.y != foe->pos.y)))
 		foe = foe->next;
-  	printf("foe @ %lu-%lu\n", foe->pos.x, foe->pos.y);
 	return (foe);
 }

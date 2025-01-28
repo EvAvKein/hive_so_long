@@ -39,7 +39,6 @@ void	edit_attack_counters(t_game *game, size_t new_count)
 		mlx_delete_image(game->mlx, game->progress.attacks_str);
 	itoa = ft_itoa(new_count);
 	new_string = ft_strjoin("Attacks: ", ft_itoa(new_count));
-	printf("hmmm\n");
 	if (!itoa || !new_string)
 	{
 		if (itoa)
@@ -48,7 +47,6 @@ void	edit_attack_counters(t_game *game, size_t new_count)
 			"ERROR: Memory allocation failed\n", 0, 0);
 		return ;
 	}
-	printf("attacks counter edited\n");
   game->progress.attacks_str = mlx_put_string(game->mlx, new_string, 0, 0);
 	free(itoa);
 	free(new_string);

@@ -23,6 +23,19 @@
 # include "perrors.h"
 # include "settings.h"
 
+# define BASE_WIDTH			640 // Scales well to a lot of screen sizes!
+# define BASE_HEIGHT		360 // Scales well to a lot of screen sizes!
+# define INIT_WIDTH			BASE_WIDTH * WINDOW_SCALE
+# define INIT_HEIGHT		BASE_HEIGHT * WINDOW_SCALE
+
+# define BASE_TEXTURE_SIZE		40
+# define BPP									(BASE_TEXTURE_SIZE + TILE_PADDING)
+
+# define UP_CHAR			'U'
+# define DOWN_CHAR			'D'
+# define LEFT_CHAR			'L'
+# define RIGHT_CHAR			'R'
+
 typedef struct  s_map_chars_vali {
 	bool	player;
 	bool    exit;

@@ -22,6 +22,8 @@ typedef struct	s_images {
 	mlx_image_t	*exit;
 	mlx_image_t	*player;
 	mlx_image_t	*foe;
+	mlx_image_t	*sprite_max;
+	mlx_image_t	*sprite_min;
 }				t_images;
 
 void    keyhook(mlx_key_data_t keydata, void *param);

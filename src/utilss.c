@@ -53,3 +53,37 @@ void	edit_attack_counters(t_game *game, size_t new_count)
 	free(itoa);
 	free(new_string);
 }
+static bool toggle_sprite(t_images *img, mlx_image_t *sprite, bool active)
+{
+	if (active)
+	{
+		sprite->instances->x = img->player->instances->x - BPP / 2;
+		sprite->instances->y = img->player->instances->y - BPP / 2;
+		if (img->foe->count)
+			sprite->instances->z = img->foe->instances[img->foe->count - 1].z;
+	}
+	else
+		sprite->instances->y = -BPP * 2;
+	return (1);
+}
+
+bool update_sprites(t_game *game, bool boost)
+{
+	t_images	img;
+
+	img = game->images;
+	if (boost)
+	{
+		toggle_sprite(&img, img.sprite_max, 1);
+		toggle_sprite(&img, img.sprite_min, 0);
+		return (boost);
+	}
+	if (img.sprite_max->instances->y > 0)
+	{
+		toggle_sprite(&img, img.sprite_max, 0);
+		toggle_sprite(&img, img.sprite_min, 1);
+	}
+	else if (img.sprite_min->instances->y > 0)
+		toggle_sprite(&img, img.sprite_min, 0);
+	return (boost);
+}

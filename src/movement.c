@@ -39,7 +39,8 @@ static void	increment_move_counters(t_game *game)
 	free(new_string);
 }
 
-static bool collect_collectible(t_game *game, t_entity *collectible)
+static bool collect_collectible(t_game *game, t_entity *collectible,
+	bool *move_collects)
 {
 	mlx_instance_t *img;
 
@@ -53,12 +54,13 @@ static bool collect_collectible(t_game *game, t_entity *collectible)
 		return (!perr("Collect attempt failed to find corresponding image!!\n"));
 	img->enabled = 0;
 	game->progress.to_collect--;
+	*move_collects = 1;
 	edit_attack_counters(game, ++game->progress.attacks);
 	create_foe(game, collectible->pos);
 	return (1);
 }
 
-bool	move_player(t_game *game, char direction)
+bool	move_player(t_game *game, char direction, bool *move_collects)
 {
 	t_pos		player_pos;
 	t_entity		ahead;
@@ -76,7 +78,7 @@ bool	move_player(t_game *game, char direction)
 	}
 	increment_move_counters(game);
 	if (ahead.chr == COLLECTIBLE_CHAR)
-		collect_collectible(game, &ahead);
+		collect_collectible(game, &ahead, move_collects);
 	if (ahead.chr == EXIT_CHAR && ++game->progress.standing_on_exit
 		&& !game->progress.to_collect)
 		victory(game);

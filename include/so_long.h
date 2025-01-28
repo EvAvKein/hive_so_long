@@ -106,7 +106,8 @@ typedef struct		s_game {
 
 mlx_instance_t * image_instance_by_pos(mlx_image_t *img, t_offset offset, t_pos pos);
 bool	draw_images(t_game *game);
-bool	move_player(t_game *game, char direction);
+bool	move_player(t_game *game, char direction, bool *move_collects);
+bool update_sprites(t_game *game, bool boost);
 t_offset calc_offset(t_game *game);
 
 bool create_foe(t_game *game, t_pos pos);

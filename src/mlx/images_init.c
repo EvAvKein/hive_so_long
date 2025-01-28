@@ -45,6 +45,12 @@ static bool load_images(t_game *game)
 	game->images.foe = load_image(game->mlx, "textures/foe.png");
 	if (!game->images.foe)
 		return (!perr("Failed to load foe image\n"));
+	game->images.sprite_max = load_image(game->mlx, "./textures/sprite_max.png");
+	if (!game->images.sprite_max)
+		return (!perr("Failed to load sprite_max image\n"));
+	game->images.sprite_min = load_image(game->mlx, "./textures/sprite_min.png");
+	if (!game->images.sprite_min)
+		return (!perr("Failed to load sprite_min image\n"));
 	return (1);
 }
 
@@ -93,5 +99,10 @@ bool	draw_images(t_game *game)
 	if (!for_each_tile(game, draw_background, &offset)
 		|| !for_each_tile(game, draw_tile, &offset))
 		return (0);
+	if (mlx_image_to_window(game->mlx, game->images.sprite_max,
+		0, 0 - BPP * 2) < 0
+		|| mlx_image_to_window(game->mlx, game->images.sprite_min,
+		0, 0 - BPP * 2) < 0)
+		return (!perr("MLX sprite drawing error\n"));
 	return (1);
 }

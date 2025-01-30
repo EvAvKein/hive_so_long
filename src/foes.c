@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:34:04 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 10:43:12 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 11:30:54 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,16 +114,18 @@ static void	play_foe(t_game *game, t_foe *foe, t_pos player, t_offset offset)
 
 void	play_foes(t_game *game)
 {
+	t_images	img;
 	t_pos		player_pos;
 	t_foe		*foe;
 	t_offset	offset;
 
+	img = game->images;
 	foe = game->foes;
 	offset = (t_offset){.x = game->images.wall->instances->x,
 		.y = game->images.wall->instances->y};
 	update_pos(&player_pos,
-		game->images.player->instances->x / BPP,
-		game->images.player->instances->y / BPP);
+		(img.player->instances->x - img.wall->instances->x) / BPP,
+		(img.player->instances->y - img.wall->instances->y) / BPP);
 	while (foe)
 	{
 		play_foe(game, foe, player_pos, offset);

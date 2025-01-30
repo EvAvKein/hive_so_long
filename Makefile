@@ -6,7 +6,7 @@
 #    By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/11 09:31:47 by ekeinan           #+#    #+#              #
-#    Updated: 2025/01/30 09:05:03 by ekeinan          ###   ########.fr        #
+#    Updated: 2025/01/30 11:56:47 by ekeinan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRC_FILES = main.c \
 	  		map/visualize.c \
 			mlx/images_init.c \
 			mlx/images_utils.c \
-			mlx/update_overlayed.c \
+			mlx/update_overlayed.c
 
 COMPILE_FLAGS = -Wall -Wextra -Werror
 COMPILE_WITH_MLX = $(MLX_LIB) -Iinclude -ldl -lglfw -pthread -lm
@@ -49,7 +49,7 @@ $(MLX_LIB):
 	@cd $(MLX_DIR) && cmake -B build && cmake --build build -j4
 
 %.o: %.c
-	cc $(COMPILE_FLAGS) -c $< -o $@ -DVISUALIZE=$(if $(VISUALIZE),1,0) -g
+	cc $(COMPILE_FLAGS) -c $< -o $@ -D VISUALIZE=$(if $(VISUALIZE),1,0)
 
 $(NAME): $(LIBFT_LIB) $(MLX_LIB) $(OBJ)
 	cc $(COMPILE_FLAGS) $(OBJ) $(LIBFT_LIB) $(COMPILE_WITH_MLX) -o $(NAME)
@@ -64,12 +64,11 @@ clean:
 
 fclean: clean
 	@make -C $(LIBFT_DIR) $@ --no-print-directory
-	rm -f $(NAME) tags
+	rm -f $(NAME)
 
 re: fclean all
 
 neat: $(NAME) clean
-	ctags -R *
 	clear
 
 .PHONY: all bonus clean fclean re

@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:41:32 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 10:07:41 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 11:33:24 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@ bool	toggle_sprite(t_images *img, mlx_image_t *sprite, bool active)
 	{
 		sprite->instances->x = img->player->instances->x - BPP / 2;
 		sprite->instances->y = img->player->instances->y - BPP / 2;
-		latest_z = img->foe->instances[img->foe->count - 1].z;
 		if (img->foe->count)
+		{
+			latest_z = img->foe->instances[img->foe->count - 1].z;
 			sprite->instances->z = latest_z + 1;
+		}
 	}
 	else
-		sprite->instances->y = -BPP * 2;
+		sprite->instances->y = 0 - BPP * 2;
 	return (1);
 }
 
@@ -39,7 +41,7 @@ void	update_sprites(t_game *game, bool boost)
 		toggle_sprite(&img, img.sprite_max, 1);
 		toggle_sprite(&img, img.sprite_min, 0);
 	}
-	if (img.sprite_max->instances->y > 0)
+	else if (img.sprite_max->instances->y > 0)
 	{
 		toggle_sprite(&img, img.sprite_max, 0);
 		toggle_sprite(&img, img.sprite_min, 1);

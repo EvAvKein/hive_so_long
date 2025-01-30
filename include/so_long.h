@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:42:52 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 11:05:46 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 11:41:41 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
 # include "perrors.h"
 # include "settings.h"
 
-# define INIT_WIDTH			640 // Scales well to a lot of screen sizes!
-# define INIT_HEIGHT		360 // Scales well to a lot of screen sizes!
+# define INIT_WIDTH			1280
+# define INIT_HEIGHT		720
 
-# define BPP					40
+# define BPP				40
 
 # define UP_CHAR			'U'
 # define DOWN_CHAR			'D'

@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:34:21 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 10:23:34 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 11:24:30by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ bool	print_journey(t_journey *journey, int fd)
 		else
 		{
 			write(fd, "not found", 9);
-			write(fd, ", ", 3);
-			write(fd, "collected: ", 11);
-			ft_putnbr_fd(journey->collected, fd);
-			write(fd, "\n", 1);
 		}
+		write(fd, ", ", 3);
+		write(fd, "collected: ", 11);
+		ft_putnbr_fd(journey->collected, fd);
+		write(fd, "\n", 1);
 		return (1);
 	}
 	return (0);

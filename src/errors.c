@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 17:37:51 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/10 20:02:28 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 08:30:14 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,15 @@ int	perrno(char *precolon, int errnum)
 
 int	perrno_mlx()
 {
-	perr("MLX: ");
-	perr((char *) mlx_strerror(mlx_errno));
-	perr("\n");
+	char	*strerror;
+
+	strerror = mlx_strerror(mlx_errno);
+	if (strerror)
+	{
+		perr("MLX: ");
+		perr((char *) strerror);
+		perr("\n");
+		free(strerror);
+	}
 	return (1);
 }

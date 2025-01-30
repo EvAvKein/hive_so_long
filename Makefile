@@ -6,7 +6,7 @@
 #    By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/11 09:31:47 by ekeinan           #+#    #+#              #
-#    Updated: 2025/01/30 11:56:47 by ekeinan          ###   ########.fr        #
+#    Updated: 2025/01/30 12:51:26 by ekeinan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,9 @@ $(LIBFT_LIB):
 	@make -C $(LIBFT_DIR) -s --no-print-directory
 
 $(MLX_LIB):
+	if ! find . | grep MLX42; then \
+		git clone https://github.com/codam-coding-college/MLX42.git $(MLX_DIR);\
+	fi;
 	@cd $(MLX_DIR) && cmake -B build && cmake --build build -j4
 
 %.o: %.c
@@ -64,7 +67,7 @@ clean:
 
 fclean: clean
 	@make -C $(LIBFT_DIR) $@ --no-print-directory
-	rm -f $(NAME)
+	rm -rf $(NAME) $(MLX_DIR)
 
 re: fclean all
 

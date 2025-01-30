@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:41:32 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 08:43:14 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 09:51:20 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool toggle_sprite(t_images *img, mlx_image_t *sprite, bool active)
 	return (1);
 }
 
-bool update_sprites(t_game *game, bool boost)
+void update_sprites(t_game *game, bool boost)
 {
 	t_images	img;
 
@@ -35,7 +35,6 @@ bool update_sprites(t_game *game, bool boost)
 	{
 		toggle_sprite(&img, img.sprite_max, 1);
 		toggle_sprite(&img, img.sprite_min, 0);
-		return (boost);
 	}
 	if (img.sprite_max->instances->y > 0)
 	{
@@ -44,7 +43,6 @@ bool update_sprites(t_game *game, bool boost)
 	}
 	else if (img.sprite_min->instances->y > 0)
 		toggle_sprite(&img, img.sprite_min, 0);
-	return (boost);
 }
 
 void	increment_move_counters(t_game *game)

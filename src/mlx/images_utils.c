@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:34:35 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 08:34:36 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 09:53:24 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static bool	offset_image_instances(mlx_image_t *img, int relative_x, int relativ
   return (1);
 }
 
-bool offset_images_within_bounds(t_game *game, char direction)
+void offset_images_within_bounds(t_game *game, char direction)
 {
   t_offset		offset;
   mlx_image_t		*walls;
@@ -65,14 +65,13 @@ bool offset_images_within_bounds(t_game *game, char direction)
     + (direction == LEFT_CHAR && player->x < game->screen.width / 2
       && walls->instances->x < 0); 
   if (!offset.x && !offset.y)
-    return (false);
+    return ;
   offset_image_instances(game->images.background, offset.x, offset.y);
   offset_image_instances(game->images.exit, offset.x, offset.y);
   offset_image_instances(game->images.wall, offset.x, offset.y);
   offset_image_instances(game->images.player, offset.x, offset.y);
   offset_image_instances(game->images.collectible, offset.x, offset.y);
   offset_image_instances(game->images.foe, offset.x, offset.y);
-  return (1);
 }
 
 t_offset calc_offset(t_game *game)

@@ -6,13 +6,13 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:38:38 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 09:00:07 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 09:51:58 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-bool update_pos_if_player(t_game *game, t_entity c, void *extras)
+static bool	update_pos_if_player(t_game *game, t_entity c, void *extras)
 {
 	(void) game;
 	
@@ -51,22 +51,16 @@ static bool collect_collectible(t_game *game, t_entity *collectible,
 	return (1);
 }
 
-static bool	move_player(t_game *game, char direction, bool *move_collects)
+static void move_player(t_game *game, char direction,
+	t_pos player_pos, bool *move_collects)
 {
-	t_pos		player_pos;
 	t_entity		ahead;
 
-	update_pos(&player_pos,
-		(game->images.player->instances->x - game->images.wall->instances->x) / BPP,
-		(game->images.player->instances->y - game->images.wall->instances->y) / BPP);
 	ahead = adjacent_entity(game->map->layout, player_pos, direction);
 	if (ahead.chr == WALL_CHAR)
-		return (0);
+		return ;
 	if (ahead.chr == FOE_CHAR)
-	{
 		defeat(game);
-		return (0);
-	}
 	increment_move_counters(game);
 	if (ahead.chr == COLLECTIBLE_CHAR)
 		collect_collectible(game, &ahead, move_collects);
@@ -74,31 +68,39 @@ static bool	move_player(t_game *game, char direction, bool *move_collects)
 		&& !game->progress.to_collect)
 		victory(game);
 	game->map->layout[player_pos.y][player_pos.x] = EMPTY_CHAR;
-	if (ahead.chr != EXIT_CHAR && game->progress.standing_on_exit && game->progress.standing_on_exit--)
+	if (ahead.chr != EXIT_CHAR && game->progress.standing_on_exit
+		&& game->progress.standing_on_exit--)
 		game->map->layout[player_pos.y][player_pos.x] = EXIT_CHAR;
 	game->map->layout[ahead.pos.y][ahead.pos.x] = PLAYER_CHAR;
 	game->images.player->instances->x += ((ahead.pos.x - player_pos.x) * BPP);
 	game->images.player->instances->y += ((ahead.pos.y - player_pos.y) * BPP);
 	player_pos = ahead.pos;
 	offset_images_within_bounds(game, direction);
-	return (1);
 }
 
 bool    handle_player_move(t_game *game, mlx_key_data_t e, bool *move_collects)
 {
 	t_offset    movement;
+	t_images	img;
+	t_pos		player_pos;
 	
 	movement = (t_offset){.x = 0, .y = 0};
 	movement.y = 0 - (e.key == MLX_KEY_W) + (e.key == MLX_KEY_S);
 	movement.x = 0 - (e.key == MLX_KEY_A) + (e.key == MLX_KEY_D);
 	if (!movement.x && !movement.y)
 		return (0);
+	img = game->images;
+	update_pos(&player_pos,
+		(img.player->instances->x - img.wall->instances->x) / BPP,
+		(img.player->instances->y - img.wall->instances->y) / BPP);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT_SHIFT)
 		&& game->progress.attacks)
 		destroy_foe(game, &movement);
 	if (movement.x)
-		move_player(game, direction_by_offset(movement), move_collects);
+		move_player(game, direction_by_offset(movement),
+			player_pos, move_collects);
 	if (movement.y)
-		move_player(game, direction_by_offset(movement), move_collects);
+		move_player(game, direction_by_offset(movement),
+			player_pos, move_collects);
 	return (1);
 }

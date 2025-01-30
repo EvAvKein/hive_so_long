@@ -6,15 +6,15 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 09:07:27 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 09:09:28 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 09:38:10 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
+# include "so_long.h"
 
 typedef struct	s_images {
 	mlx_image_t	*background;

@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:00:09 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 08:38:36 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 09:48:25 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,10 @@ bool	for_each_tile(t_game *game,
 	return (1);
 }
 
-bool	update_pos(t_pos *pos, size_t new_x, size_t new_y)
+void	update_pos(t_pos *pos, size_t new_x, size_t new_y)
 {
 	pos->x = new_x;
 	pos->y = new_y;
-	return (1);
 }
 
 char	direction_by_i(unsigned int i)

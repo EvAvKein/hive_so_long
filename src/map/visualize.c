@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:34:21 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 08:34:24 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 09:56:43 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ bool print_journey(t_journey *journey, int fd)
 {
   if (journey)
   {
-    write (fd, "Exit ", 5);
+    write(fd, "Exit ", 5);
     if (journey->exit_found)
       write(fd, "found", 5);
     else

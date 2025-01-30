@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:42:52 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 09:29:38 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 09:53:30 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,21 @@ bool		print_layout_journey_and_pause(char **layout,
 
 bool		draw_images(t_game *game);
 t_offset	calc_offset(t_game *game);
-bool		offset_images_within_bounds(t_game *game, char direction);
+void		offset_images_within_bounds(t_game *game, char direction);
 
 bool		init_player_pos(t_game *game, t_pos *nav_pos);
-bool		update_pos_if_player(t_game *game, t_entity c, void *extras);
 
 bool		handle_player_move(t_game *game, mlx_key_data_t e,
 				bool *move_collects);
 void		increment_move_counters(t_game *game);
 void		edit_attack_counters(t_game *game, size_t new_count);
 
-bool 		play_foes(t_game *game);
-bool 		create_foe(t_game *game, t_pos pos);
+void 		play_foes(t_game *game);
+void 		create_foe(t_game *game, t_pos pos);
 void		update_foe_pos(t_foe *foe, mlx_image_t *foe_img, t_pos dest);
 void		destroy_foe(t_game *game, t_offset *player_move);
 
-bool		update_sprites(t_game *game, bool boost);
+void		update_sprites(t_game *game, bool boost);
 
 t_pos		adjacent_pos(t_pos pos, char direction);
 char		adjacent_char(char **layout, t_pos pos, char direction);
@@ -78,7 +77,7 @@ t_entity	adjacent_entity(char **layout, t_pos pos, char direction);
 t_foe		*adjacent_foe(t_game *game, t_offset *player_move);
 
 int				clamp(int min, int num, int max);
-bool			update_pos(t_pos *pos, size_t new_x, size_t new_y);
+void			update_pos(t_pos *pos, size_t new_x, size_t new_y);
 char			direction_by_i(unsigned int i);
 char			direction_by_offset(t_offset offset);
 mlx_instance_t	*image_instance_by_pos(mlx_image_t *img, t_offset offset, t_pos pos);

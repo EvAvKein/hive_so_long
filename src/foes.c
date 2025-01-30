@@ -6,20 +6,20 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:34:04 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 08:48:49 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 09:50:21 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-bool create_foe(t_game *game, t_pos pos)
+void create_foe(t_game *game, t_pos pos)
 {
   t_foe	*foe;
   t_foe *prev_foe;
  
   foe = malloc(sizeof(t_foe));
   if (!foe)
-    return (!perrno("Foe creation", ENOMEM));
+    perrno("Foe creation", ENOMEM);
   foe->pending = FOE_PENDING;
   foe->pos = pos;
   foe->standing_on_collectible = false;
@@ -35,7 +35,6 @@ bool create_foe(t_game *game, t_pos pos)
   }
   else
     game->foes = foe;
-  return (1);
 }
 
 void destroy_foe(t_game *game, t_offset *player_move)
@@ -112,7 +111,7 @@ static void play_foe(t_game *game, t_foe *foe, t_pos player, t_offset offset)
     ), direction_by_offset((t_offset){.x = 0, .y = distance.y}));
 }
 
-bool  play_foes(t_game *game)
+void  play_foes(t_game *game)
 {
   t_pos player_pos;
   t_foe *foe;
@@ -121,7 +120,9 @@ bool  play_foes(t_game *game)
   foe = game->foes;
   offset = (t_offset){.x = game->images.wall->instances->x,
   .y = game->images.wall->instances->y};
-  init_player_pos(game, &player_pos);
+  update_pos(&player_pos,
+    game->images.player->instances->x / BPP,
+    game->images.player->instances->y / BPP);
   while (foe)
   {
     play_foe(game, foe, player_pos, offset);

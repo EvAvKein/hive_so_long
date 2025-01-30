@@ -74,7 +74,6 @@ static void move_foe(t_game *game, t_foe *foe,
 
 static void play_foe(t_game *game, t_foe *foe, t_pos player, t_offset offset)
 {
-  int  img_i;
   t_offset distance; 
   if (foe->pending && foe->pending--)
     return ;
@@ -82,12 +81,12 @@ static void play_foe(t_game *game, t_foe *foe, t_pos player, t_offset offset)
   {
     if (game->map->layout[foe->pos.y][foe->pos.x] != EMPTY_CHAR)
       return ;
-    img_i = mlx_image_to_window(game->mlx, game->images.foe,
+    foe->img_i = mlx_image_to_window(game->mlx, game->images.foe,
       foe->pos.x * BPP + offset.x, foe->pos.y * BPP + offset.y);
-    if (img_i < 0)
+    if (foe->img_i < 0)
       return ((void)!perr("MLX foe drawing error\n"));
-    foe->img_i = img_i;
     game->map->layout[foe->pos.y][foe->pos.x] = FOE_CHAR;
+    return ;
   }
   if (!game->images.foe->instances[foe->img_i].enabled)
     return ;

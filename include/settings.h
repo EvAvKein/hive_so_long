@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 09:16:03 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 11:05:52 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 11:58:14 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define SETTINGS_H
 
 # define WINDOW_TITLE		"so_long"
-# define WINDOW_SCALE		2
 
 # define FOE_PENDING    8
 

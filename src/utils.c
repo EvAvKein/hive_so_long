@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:00:09 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/27 19:56:15 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 08:38:36 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,13 @@ char direction_by_offset(t_offset offset)
 	if (offset.y > 0)
 		return (DOWN_CHAR);
 	return (!perr("BUG: direction_by_offset received impossible offset (\?\?)\n"));
+}
+
+int	clamp(int min, int num, int max)
+{
+	if (num < min)
+		return (min);
+	if (num > max)
+		return (max);
+	return (num);
 }

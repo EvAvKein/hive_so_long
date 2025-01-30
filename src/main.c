@@ -6,12 +6,33 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:49:11 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/27 18:01:09 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 09:04:52 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
+static void    keyhook(mlx_key_data_t e, void *param)
+{
+	t_game  *game;
+	bool        move_collects;
+
+	move_collects = 0;
+	game = param;
+	if (e.action != MLX_PRESS && e.action != MLX_REPEAT)
+		return ;
+	if (e.key == MLX_KEY_ESCAPE)
+	{
+		mlx_terminate(game->mlx);
+		clean_exit(game, EXIT_SUCCESS);
+	}
+	if (!handle_player_move(game, e, &move_collects))
+		return ;
+	play_foes(game);
+	update_sprites(game, move_collects);
+	if (VISUALIZE)
+		print_layout(game->map->layout, game->map->lines, 1);
+}
 static bool	launch_game(t_game *game)
 {
 	game->mlx = mlx_init(game->screen.width, game->screen.height,

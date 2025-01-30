@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   images_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/30 08:34:35 by ekeinan           #+#    #+#             */
+/*   Updated: 2025/01/30 08:34:36 by ekeinan          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/so_long.h"
 
 mlx_instance_t *image_instance_by_pos(mlx_image_t *img, t_offset offset, t_pos pos)

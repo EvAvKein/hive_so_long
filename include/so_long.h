@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:42:52 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/27 16:48:40 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 09:29:38 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 # include <stdio.h>
 # include <errno.h>
 # include <string.h>
+# include "../MLX42/include/MLX42/MLX42.h"
 # include "../libft_full/libft_full.h"
-# include "mlx_so_long.h"
+# include "structs.h"
 # include "perrors.h"
 # include "settings.h"
 
@@ -38,112 +39,49 @@
 
 # define FONT_HEIGHT		20
 
-typedef struct  s_map_chars_vali {
-	bool	player;
-	bool    exit;
-	size_t  collectibles;
-}           t_map_chars_vali;
+bool		save_map(t_game *game, char *map_path);
+bool		layoutdup_unchunked_swap(t_map *map, char ***dest);
+bool		validate_map_contents(t_game *game, size_t *collectibles);
+bool		validate_map_path(t_game *game, size_t collectible);
 
-typedef struct  s_journey {
-	size_t  collected;
-	bool    exit_found;
-	bool    visualize;
-	size_t  visualizing_lines;
-}           t_journey;
+bool		for_each_tile(t_game *game,
+				bool(*func)(t_game *game, t_entity c, void *extras),
+				void *extras);
 
-typedef struct	s_offset {
-	int	x;
-	int	y;
-}			t_offset;
+bool		print_layout(char **layout, size_t lines, int fd);
+bool		print_journey(t_journey *journey, int fd);
+bool		print_layout_journey_and_pause(char **layout,
+				t_journey *journey, int fd);
 
-typedef struct	s_progress {
-	mlx_image_t		*moves_str;
-	mlx_image_t		*attacks_str;
-	size_t	moves;
-	size_t	attacks;
-	size_t	to_collect;
-	size_t	standing_on_exit;
-}			t_progress;
+bool		draw_images(t_game *game);
+t_offset	calc_offset(t_game *game);
+bool		offset_images_within_bounds(t_game *game, char direction);
 
-typedef struct	s_pos {
-	size_t	x;
-	size_t	y;
-}			t_pos;
+bool		init_player_pos(t_game *game, t_pos *nav_pos);
+bool		update_pos_if_player(t_game *game, t_entity c, void *extras);
 
-typedef struct	s_entity {
-	char		chr;
-	t_pos		pos;
-}				t_entity;
+bool		handle_player_move(t_game *game, mlx_key_data_t e,
+				bool *move_collects);
+void		increment_move_counters(t_game *game);
+void		edit_attack_counters(t_game *game, size_t new_count);
 
-typedef struct	s_foe {
-	unsigned int	pending;
-	t_pos			pos;
-	int			standing_on_collectible;
-	int			standing_on_exit;
-	int		img_i;
-	struct s_foe		*next;
-}				t_foe;
+bool 		play_foes(t_game *game);
+bool 		create_foe(t_game *game, t_pos pos);
+void		update_foe_pos(t_foe *foe, mlx_image_t *foe_img, t_pos dest);
+void		destroy_foe(t_game *game, t_offset *player_move);
 
-typedef struct 		s_map 	{
-	char  			**layout;
-	size_t			width;
-	size_t			lines;
-}					t_map;
+bool		update_sprites(t_game *game, bool boost);
 
-typedef	struct	s_screen {
-	int		width;
-	int		height;
-}				t_screen;
-
-typedef struct		s_game {
-	mlx_t			*mlx;
-	t_map			*map;
-	t_foe			*foes;
-	t_images		images;
-	t_screen		screen;
-	t_progress		progress;
-}					t_game;
-
-mlx_instance_t * image_instance_by_pos(mlx_image_t *img, t_offset offset, t_pos pos);
-bool	draw_images(t_game *game);
-bool	move_player(t_game *game, char direction, bool *move_collects);
-bool update_sprites(t_game *game, bool boost);
-t_offset calc_offset(t_game *game);
-
-bool create_foe(t_game *game, t_pos pos);
-bool play_foes(t_game *game);
-void destroy_foe(t_game *game, t_offset *player_move);
-
-void	edit_attack_counters(t_game *game, size_t new_count);
-bool offset_images_within_bounds(t_game *game, char direction);
-void update_foe_pos(t_foe *foe, mlx_image_t *foe_img, t_pos dest);
+t_pos		adjacent_pos(t_pos pos, char direction);
+char		adjacent_char(char **layout, t_pos pos, char direction);
 t_entity	adjacent_entity(char **layout, t_pos pos, char direction);
+t_foe		*adjacent_foe(t_game *game, t_offset *player_move);
 
-bool	for_each_tile(t_game *game,
-			bool(*func)(t_game *game, t_entity c, void *extras),
-			void *extras);
-
-bool	update_pos_if_player(t_game *game, t_entity c, void *extras);
-bool	init_player_pos(t_game *game, t_pos *nav_pos);
-
-bool	save_map(t_game *game, char *map_path);
-bool	layoutdup_unchunked_swap(t_map *map, char ***dest);
-
-bool	print_layout(char **layout, size_t lines, int fd);
-bool	print_journey(t_journey *journey, int fd);
-bool	print_layout_journey_and_pause(
-	char **layout, t_journey *journey, int fd);
-bool	validate_map_contents(t_game *game, size_t *collectibles);
-bool	validate_map_path(t_game *game, size_t collectible);
-
-int	clamp(int min, int num, int max);
-
-bool    update_pos(t_pos *pos, size_t new_x, size_t new_y);
-t_pos	adjacent_pos(t_pos pos, char direction);
-char	adjacent_char(char **layout, t_pos pos, char direction);
-t_foe	*adjacent_foe(t_game *game, t_offset *player_move);
-char    direction_by_i(unsigned int i);
-char direction_by_offset(t_offset offset);
+int				clamp(int min, int num, int max);
+bool			update_pos(t_pos *pos, size_t new_x, size_t new_y);
+char			direction_by_i(unsigned int i);
+char			direction_by_offset(t_offset offset);
+mlx_instance_t	*image_instance_by_pos(mlx_image_t *img, t_offset offset, t_pos pos);
 
 void	free_layout(char **layout, size_t lines);
 int		clean_exit(t_game *game, bool exit_code);

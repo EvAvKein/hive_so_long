@@ -6,7 +6,7 @@
 #    By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/11 09:31:47 by ekeinan           #+#    #+#              #
-#    Updated: 2025/01/27 15:59:20 by ekeinan          ###   ########.fr        #
+#    Updated: 2025/01/30 09:05:03 by ekeinan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,22 +21,19 @@ MLX_LIB = $(MLX_DIR)/$(MLX_BUILD_DIR)/libmlx42.a
 
 SRC_DIR = src
 SRC_FILES = main.c \
-		 	errors.c \
-	 		free.c \
-			utils.c \
-			utilss.c \
-			adjacent.c \
-			math.c \
-			movement.c \
+			player.c \
 			foes.c \
+			adjacent.c \
+			utils.c \
+		 	errors.c \
+	 		exit.c \
 	  		map/save_map.c \
 	  		map/validate_map_contents.c \
 	  		map/validate_map_path.c \
 	  		map/visualize.c \
 			mlx/images_init.c \
 			mlx/images_utils.c \
-			mlx/hooks.c
-	  
+			mlx/update_overlayed.c \
 
 COMPILE_FLAGS = -Wall -Wextra -Werror
 COMPILE_WITH_MLX = $(MLX_LIB) -Iinclude -ldl -lglfw -pthread -lm

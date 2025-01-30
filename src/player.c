@@ -1,42 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   movement.c                                         :+:      :+:    :+:   */
+/*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:38:38 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/27 16:35:55 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 09:00:07 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-
-static void	increment_move_counters(t_game *game)
+bool update_pos_if_player(t_game *game, t_entity c, void *extras)
 {
-	size_t	new_count;
-	char 	 *itoa;
-	char		*new_string;
-
-	if (game->progress.moves_str)
-		mlx_delete_image(game->mlx, game->progress.moves_str);
-	new_count = ++game->progress.moves;
-	ft_printf("Moves: %d\n", new_count);
-	itoa = ft_itoa(new_count);
-	new_string = ft_strjoin("Moves: ", ft_itoa(new_count));
-	if (!itoa || !new_string)
+	(void) game;
+	
+	if (c.chr == PLAYER_CHAR)
 	{
-		if (itoa)
-			free(itoa);
-		game->progress.moves_str = mlx_put_string(game->mlx,
-			"ERROR: Memory allocation failed\n", 0, game->screen.height - FONT_HEIGHT);
-		return ;
+		update_pos((t_pos *) extras, c.pos.x, c.pos.y);
+		return (0);
 	}
-  game->progress.moves_str = mlx_put_string(game->mlx, new_string,
-		0, game->screen.height - FONT_HEIGHT);
-	free(itoa);
-	free(new_string);
+	return (1);
+}
+
+bool	init_player_pos(t_game *game, t_pos *nav_pos)
+{
+	for_each_tile(game, update_pos_if_player, nav_pos);
+	return (nav_pos->x && nav_pos->y);
 }
 
 static bool collect_collectible(t_game *game, t_entity *collectible,
@@ -60,7 +51,7 @@ static bool collect_collectible(t_game *game, t_entity *collectible,
 	return (1);
 }
 
-bool	move_player(t_game *game, char direction, bool *move_collects)
+static bool	move_player(t_game *game, char direction, bool *move_collects)
 {
 	t_pos		player_pos;
 	t_entity		ahead;
@@ -90,5 +81,24 @@ bool	move_player(t_game *game, char direction, bool *move_collects)
 	game->images.player->instances->y += ((ahead.pos.y - player_pos.y) * BPP);
 	player_pos = ahead.pos;
 	offset_images_within_bounds(game, direction);
+	return (1);
+}
+
+bool    handle_player_move(t_game *game, mlx_key_data_t e, bool *move_collects)
+{
+	t_offset    movement;
+	
+	movement = (t_offset){.x = 0, .y = 0};
+	movement.y = 0 - (e.key == MLX_KEY_W) + (e.key == MLX_KEY_S);
+	movement.x = 0 - (e.key == MLX_KEY_A) + (e.key == MLX_KEY_D);
+	if (!movement.x && !movement.y)
+		return (0);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT_SHIFT)
+		&& game->progress.attacks)
+		destroy_foe(game, &movement);
+	if (movement.x)
+		move_player(game, direction_by_offset(movement), move_collects);
+	if (movement.y)
+		move_player(game, direction_by_offset(movement), move_collects);
 	return (1);
 }

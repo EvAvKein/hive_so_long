@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   settings.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/30 09:16:03 by ekeinan           #+#    #+#             */
+/*   Updated: 2025/01/30 09:16:04 by ekeinan          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SETTINGS_H
 # define SETTINGS_H
 
@@ -16,6 +28,7 @@
 # define FOE_CHAR			'F'
 
 # define NAVIGATED_CHAR		'-'
+
 # ifndef VISUALIZE
 #  define VISUALIZE 0
 # endif

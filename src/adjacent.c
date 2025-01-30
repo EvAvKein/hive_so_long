@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 19:36:20 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/27 20:29:53 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 10:28:36 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_pos	adjacent_pos(t_pos pos, char direction)
 
 t_entity	adjacent_entity(char **layout, t_pos pos, char direction)
 {
-	t_entity adjacent;
+	t_entity	adjacent;
 
 	adjacent.pos = adjacent_pos(pos, direction);
 	adjacent.chr = layout[adjacent.pos.y][adjacent.pos.x];
@@ -49,13 +49,12 @@ char	adjacent_char(char **layout, t_pos pos, char direction)
 			&& perr(&direction) && !perr("\n"));
 }
 
-
 t_foe	*adjacent_foe(t_game *game, t_offset *player_move)
 {
-	t_images img;
-	t_pos	pos;
-	t_pos	dest;
-	t_foe *foe;
+	t_images	img;
+	t_pos		pos;
+	t_pos		dest;
+	t_foe		*foe;
 
 	img = game->images;
 	pos = (t_pos){

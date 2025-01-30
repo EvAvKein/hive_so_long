@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:11:52 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/15 14:40:53 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 10:24:12 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static void	navigate(char **replica, t_pos pos, t_journey *journey)
 	if (chr == WALL_CHAR || chr == NAVIGATED_CHAR)
 		return ;
 	if (journey->visualize)
-		journey->visualize = print_layout_journey_and_pause(replica, journey, 1);
+		journey->visualize = print_layout_journey_and_pause(
+				replica, journey, 1);
 	if (chr == COLLECTIBLE_CHAR)
 		journey->collected++;
 	if (chr == EXIT_CHAR)
@@ -37,7 +38,7 @@ static void	navigate(char **replica, t_pos pos, t_journey *journey)
 bool	validate_map_path(t_game *game, size_t collectibles)
 {
 	char			**replica;
-	t_journey	journey;
+	t_journey		journey;
 	t_pos			nav_pos;
 
 	nav_pos = (t_pos){.x = 0, .y = 0};

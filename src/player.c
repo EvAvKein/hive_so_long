@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:38:38 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 09:51:58 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 10:43:12 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static bool	update_pos_if_player(t_game *game, t_entity c, void *extras)
 {
 	(void) game;
-	
 	if (c.chr == PLAYER_CHAR)
 	{
 		update_pos((t_pos *) extras, c.pos.x, c.pos.y);
@@ -30,19 +29,19 @@ bool	init_player_pos(t_game *game, t_pos *nav_pos)
 	return (nav_pos->x && nav_pos->y);
 }
 
-static bool collect_collectible(t_game *game, t_entity *collectible,
+static bool	collect_collectible(t_game *game, t_entity *collectible,
 	bool *move_collects)
 {
-	mlx_instance_t *img;
+	mlx_instance_t	*img;
 
 	if (collectible->chr != COLLECTIBLE_CHAR)
 		return (!perr("Collect attempt with non-collectible tile!\n"));
 	img = image_instance_by_pos(game->images.collectible,
-		(t_offset){.x = game->images.wall->instances->x / BPP,
-		.y = game->images.wall->instances->y / BPP},
-		collectible->pos);
+			(t_offset){.x = game->images.wall->instances->x / BPP,
+			.y = game->images.wall->instances->y / BPP},
+			collectible->pos);
 	if (!img)
-		return (!perr("Collect attempt failed to find corresponding image!!\n"));
+		return (!perr("Collect attempt failed to find corresponding image!\n"));
 	img->enabled = 0;
 	game->progress.to_collect--;
 	*move_collects = 1;
@@ -51,7 +50,7 @@ static bool collect_collectible(t_game *game, t_entity *collectible,
 	return (1);
 }
 
-static void move_player(t_game *game, char direction,
+static void	move_player(t_game *game, char direction,
 	t_pos player_pos, bool *move_collects)
 {
 	t_entity		ahead;
@@ -78,12 +77,12 @@ static void move_player(t_game *game, char direction,
 	offset_images_within_bounds(game, direction);
 }
 
-bool    handle_player_move(t_game *game, mlx_key_data_t e, bool *move_collects)
+bool	handle_player_move(t_game *game, mlx_key_data_t e, bool *move_collects)
 {
-	t_offset    movement;
+	t_offset	movement;
 	t_images	img;
 	t_pos		player_pos;
-	
+
 	movement = (t_offset){.x = 0, .y = 0};
 	movement.y = 0 - (e.key == MLX_KEY_W) + (e.key == MLX_KEY_S);
 	movement.x = 0 - (e.key == MLX_KEY_A) + (e.key == MLX_KEY_D);
@@ -97,10 +96,10 @@ bool    handle_player_move(t_game *game, mlx_key_data_t e, bool *move_collects)
 		&& game->progress.attacks)
 		destroy_foe(game, &movement);
 	if (movement.x)
-		move_player(game, direction_by_offset(movement),
+		move_player(game, offset_direction(movement),
 			player_pos, move_collects);
 	if (movement.y)
-		move_player(game, direction_by_offset(movement),
+		move_player(game, offset_direction(movement),
 			player_pos, move_collects);
 	return (1);
 }

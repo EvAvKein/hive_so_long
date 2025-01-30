@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 12:11:38 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/14 18:39:35 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 10:24:33 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ bool	validate_map_contents(t_game *game, size_t *collectibles)
 	else
 		game->map->width = 0;
 	line_i = 0;
-	data = (t_map_chars_vali){.player = false, .collectibles = 0, .exit = false};
+	data = (t_map_chars_vali){.player = 0, .collectibles = 0, .exit = 0};
 	while (line_i < game->map->lines)
 		if (!validate_line(game->map, &data, line_i++))
 			return (0);

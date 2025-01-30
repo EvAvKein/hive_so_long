@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 17:36:33 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/14 18:51:14 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 10:24:55 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ bool	save_map(t_game *game, char *map_path)
 	game->map->layout = ft_calloc(1, LAYOUT_MALLOC_CHUNK);
 	if (!game->map->layout)
 		return (!perrno("Map Processing", ENOMEM));
-	if (!save_map_lines(game->map, fd)  
+	if (!save_map_lines(game->map, fd)
 		|| !validate_map_contents(game, &collectibles)
 		|| !validate_map_path(game, collectibles))
 		return (0);

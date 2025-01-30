@@ -6,13 +6,13 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 19:24:47 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 08:35:00 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 10:28:02 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void free_layout(char **layout, size_t lines)
+void	free_layout(char **layout, size_t lines)
 {
 	size_t	i;
 
@@ -22,7 +22,7 @@ void free_layout(char **layout, size_t lines)
 	free(layout);
 }
 
-void free_foes(t_foe *foes)
+void	free_foes(t_foe *foes)
 {
 	t_foe	*next;
 

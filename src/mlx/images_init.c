@@ -6,16 +6,16 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 11:03:35 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 08:34:32 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 10:15:01 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/so_long.h"
 
-static mlx_image_t *load_image(mlx_t *mlx, char *path)
+static mlx_image_t	*load_image(mlx_t *mlx, char *path)
 {
-	mlx_texture_t *texture;
-	mlx_image_t *img;
+	mlx_texture_t	*texture;
+	mlx_image_t		*img;
 
 	texture = mlx_load_png(path);
 	if (!texture)
@@ -25,49 +25,47 @@ static mlx_image_t *load_image(mlx_t *mlx, char *path)
 	return (img);
 }
 
-static bool load_images(t_game *game)
+static bool	load_images(t_game *game)
 {
-	game->images.background = load_image(game->mlx, "./textures/background.png");
-	if (!game->images.background)
-		return (!perr("Failed to load background image\n"));
-	game->images.wall = load_image(game->mlx, "textures/wall.png");
-	if (!game->images.wall)
-		return (!perr("Failed to load wall image\n"));
-	game->images.collectible = load_image(game->mlx, "textures/collectible.png");
-	if (!game->images.collectible)
-		return (!perr("Failed to load collectible image\n"));
-	game->images.exit = load_image(game->mlx, "textures/exit.png");
-	if (!game->images.exit)
-		return (!perr("Failed to load exit image\n"));
-	game->images.player = load_image(game->mlx, "textures/player.png");
-	if (!game->images.player)
-		return (!perr("Failed to load player image\n"));
-	game->images.foe = load_image(game->mlx, "textures/foe.png");
-	if (!game->images.foe)
-		return (!perr("Failed to load foe image\n"));
-	game->images.sprite_max = load_image(game->mlx, "./textures/sprite_max.png");
-	if (!game->images.sprite_max)
-		return (!perr("Failed to load sprite_max image\n"));
-	game->images.sprite_min = load_image(game->mlx, "./textures/sprite_min.png");
-	if (!game->images.sprite_min)
-		return (!perr("Failed to load sprite_min image\n"));
+	game->images.background = load_image(game->mlx,
+			"textures/background.png");
+	game->images.wall = load_image(game->mlx,
+			"textures/wall.png");
+	game->images.collectible = load_image(game->mlx,
+			"textures/collectible.png");
+	game->images.exit = load_image(game->mlx,
+			"textures/exit.png");
+	game->images.player = load_image(game->mlx,
+			"textures/player.png");
+	game->images.foe = load_image(game->mlx,
+			"textures/foe.png");
+	game->images.sprite_max = load_image(game->mlx,
+			"textures/sprite_max.png");
+	game->images.sprite_min = load_image(game->mlx,
+			"textures/sprite_min.png");
+	if (!game->images.background || !game->images.wall
+		|| !game->images.collectible || !game->images.exit
+		|| !game->images.player || !game->images.foe
+		|| !game->images.sprite_max || !game->images.sprite_min)
+		return (!perr("Failed to load images\n"));
 	return (1);
 }
 
-static bool draw_background(t_game *game, t_entity c, void *extras)
+static bool	draw_background(t_game *game, t_entity c, void *extras)
 {
-	t_offset		offset;
-	
+	t_offset	offset;
+
 	offset = *(t_offset *)extras;
 	if (mlx_image_to_window(game->mlx, game->images.background,
-		((int)c.pos.x + offset.x) * BPP, ((int)c.pos.y + offset.y) * BPP) < 0)
+			((int)c.pos.x + offset.x) * BPP, ((int)c.pos.y + offset.y) * BPP
+		) < 0)
 		return (!perr("MLX background drawing error\n"));
 	return (1);
 }
 
 static bool	draw_tile(t_game *game, t_entity c, void *extras)
 {
-	t_offset		offset;
+	t_offset	offset;
 	mlx_image_t	*img;
 
 	if (c.chr == EMPTY_CHAR)
@@ -84,7 +82,8 @@ static bool	draw_tile(t_game *game, t_entity c, void *extras)
 	else
 		return (!perr("Draw image attempt with invalid char\n"));
 	if (mlx_image_to_window(game->mlx, img,
-		((int)c.pos.x + offset.x) * BPP, ((int)c.pos.y + offset.y) * BPP) < 0)
+			((int)c.pos.x + offset.x) * BPP, ((int)c.pos.y + offset.y) * BPP
+		) < 0)
 		return (!perr("MLX tile drawing error\n"));
 	return (1);
 }
@@ -100,9 +99,9 @@ bool	draw_images(t_game *game)
 		|| !for_each_tile(game, draw_tile, &offset))
 		return (0);
 	if (mlx_image_to_window(game->mlx, game->images.sprite_max,
-		0, 0 - BPP * 2) < 0
+			0, 0 - BPP * 2) < 0
 		|| mlx_image_to_window(game->mlx, game->images.sprite_min,
-		0, 0 - BPP * 2) < 0)
+			0, 0 - BPP * 2) < 0)
 		return (!perr("MLX sprite drawing error\n"));
 	return (1);
 }

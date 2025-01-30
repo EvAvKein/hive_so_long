@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:00:09 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 09:48:25 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 10:43:12 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	for_each_tile(t_game *game,
 
 	y = 0;
 	layout = game->map->layout;
-	lines = game->map->lines;	
+	lines = game->map->lines;
 	while (y < lines)
 	{
 		x = 0;
@@ -60,12 +60,12 @@ char	direction_by_i(unsigned int i)
 		&& perr((char *)&i) && !perr("' (ascii representation)\n"));
 }
 
-char direction_by_offset(t_offset offset)
+char	offset_direction(t_offset offset)
 {
 	if (!offset.x && !offset.y)
 		return ('\0');
 	if (offset.x && offset.y)
-		return (!perr("BUG: direction_by_offset received two offsets\n"));
+		return (!perr("BUG: offset_direction received two offsets\n"));
 	if (offset.x < 0)
 		return (LEFT_CHAR);
 	if (offset.x > 0)
@@ -74,7 +74,7 @@ char direction_by_offset(t_offset offset)
 		return (UP_CHAR);
 	if (offset.y > 0)
 		return (DOWN_CHAR);
-	return (!perr("BUG: direction_by_offset received impossible offset (\?\?)\n"));
+	return (!perr("BUG: offset_direction received impossible offset\n"));
 }
 
 int	clamp(int min, int num, int max)

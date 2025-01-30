@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:40:30 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/15 14:41:42 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 08:09:34 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static bool toggle_sprite(t_images *img, mlx_image_t *sprite, bool active)
 		sprite->instances->x = img->player->instances->x - BPP / 2;
 		sprite->instances->y = img->player->instances->y - BPP / 2;
 		if (img->foe->count)
-			sprite->instances->z = img->foe->instances[img->foe->count - 1].z;
+			sprite->instances->z = img->foe->instances[img->foe->count - 1].z + 1;
 	}
 	else
 		sprite->instances->y = -BPP * 2;

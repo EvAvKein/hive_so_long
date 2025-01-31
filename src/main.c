@@ -6,27 +6,27 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:49:11 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 10:27:49 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/31 23:02:09 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-static void	keyhook(mlx_key_data_t e, void *param)
+static void	keyhook(mlx_key_data_t key_data, void *param)
 {
 	t_game	*game;
 	bool	move_collects;
 
 	move_collects = 0;
 	game = param;
-	if (e.action != MLX_PRESS && e.action != MLX_REPEAT)
+	if (key_data.action != MLX_PRESS && key_data.action != MLX_REPEAT)
 		return ;
-	if (e.key == MLX_KEY_ESCAPE)
+	if (key_data.key == MLX_KEY_ESCAPE)
 	{
 		mlx_terminate(game->mlx);
 		clean_exit(game, EXIT_SUCCESS);
 	}
-	if (!handle_player_move(game, e, &move_collects))
+	if (!handle_player_move(game, key_data, &move_collects))
 		return ;
 	play_foes(game);
 	update_sprites(game, move_collects);

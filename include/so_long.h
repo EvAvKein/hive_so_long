@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:42:52 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 11:41:41 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/31 23:04:23 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void			offset_images_within_bounds(t_game *game, char direction);
 
 bool			init_player_pos(t_game *game, t_pos *nav_pos);
 
-bool			handle_player_move(t_game *game, mlx_key_data_t e,
+bool			handle_player_move(t_game *game, mlx_key_data_t key_data,
 					bool *move_collects);
 void			increment_move_counters(t_game *game);
 void			edit_attack_counters(t_game *game, size_t new_count);

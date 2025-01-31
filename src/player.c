@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:38:38 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/31 09:09:45 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/31 23:01:14 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,16 @@ static void	move_player(t_game *game, char direction,
 	offset_images_within_bounds(game, direction);
 }
 
-bool	handle_player_move(t_game *game, mlx_key_data_t e, bool *move_collects)
+bool	handle_player_move(t_game *game, mlx_key_data_t key_data,
+	bool *move_collects)
 {
 	t_offset	movement;
 	t_images	img;
 	t_pos		player_pos;
 
 	movement = (t_offset){.x = 0, .y = 0};
-	movement.y = 0 - (e.key == KEY_UP) + (e.key == KEY_DOWN);
-	movement.x = 0 - (e.key == KEY_LEFT) + (e.key == KEY_RIGHT);
+	movement.y = 0 - (key_data.key == KEY_UP) + (key_data.key == KEY_DOWN);
+	movement.x = 0 - (key_data.key == KEY_LEFT) + (key_data.key == KEY_RIGHT);
 	if (!movement.x && !movement.y)
 		return (0);
 	img = game->images;

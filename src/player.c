@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:38:38 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 10:43:12 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/31 09:09:45 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,15 @@ bool	handle_player_move(t_game *game, mlx_key_data_t e, bool *move_collects)
 	t_pos		player_pos;
 
 	movement = (t_offset){.x = 0, .y = 0};
-	movement.y = 0 - (e.key == MLX_KEY_W) + (e.key == MLX_KEY_S);
-	movement.x = 0 - (e.key == MLX_KEY_A) + (e.key == MLX_KEY_D);
+	movement.y = 0 - (e.key == KEY_UP) + (e.key == KEY_DOWN);
+	movement.x = 0 - (e.key == KEY_LEFT) + (e.key == KEY_RIGHT);
 	if (!movement.x && !movement.y)
 		return (0);
 	img = game->images;
 	update_pos(&player_pos,
 		(img.player->instances->x - img.wall->instances->x) / BPP,
 		(img.player->instances->y - img.wall->instances->y) / BPP);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT_SHIFT)
+	if (mlx_is_key_down(game->mlx, KEY_MODIFIER_ATTACK)
 		&& game->progress.attacks)
 		destroy_foe(game, &movement);
 	if (movement.x)

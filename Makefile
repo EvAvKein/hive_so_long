@@ -6,7 +6,7 @@
 #    By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/11 09:31:47 by ekeinan           #+#    #+#              #
-#    Updated: 2025/01/30 12:51:26 by ekeinan          ###   ########.fr        #
+#    Updated: 2025/01/30 17:19:27 by ekeinan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME = so_long
 LIBFT_DIR = libft_full
 LIBFT_LIB = $(LIBFT_DIR)/libft_full.a
 
+MLX_REPO = https://github.com/codam-coding-college/MLX42.git
 MLX_DIR = MLX42
 MLX_BUILD_DIR = build
 MLX_LIB = $(MLX_DIR)/$(MLX_BUILD_DIR)/libmlx42.a
@@ -47,7 +48,7 @@ $(LIBFT_LIB):
 
 $(MLX_LIB):
 	if ! find . | grep MLX42; then \
-		git clone https://github.com/codam-coding-college/MLX42.git $(MLX_DIR);\
+		git clone $(MLX_REPO) $(MLX_DIR);\
 	fi;
 	@cd $(MLX_DIR) && cmake -B build && cmake --build build -j4
 
@@ -58,7 +59,7 @@ $(NAME): $(LIBFT_LIB) $(MLX_LIB) $(OBJ)
 	cc $(COMPILE_FLAGS) $(OBJ) $(LIBFT_LIB) $(COMPILE_WITH_MLX) -o $(NAME)
 
 visualize: export VISUALIZE = 1
-visualize: $(OBJ)
+visualize: $(LIBFT_LIB) $(MLX_LIB) $(OBJ)
 	@$(MAKE) $(NAME) --no-print-directory
 
 clean:

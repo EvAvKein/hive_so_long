@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:41:32 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 11:33:24 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/30 17:21:37 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	increment_move_counters(t_game *game)
 	new_count = ++game->progress.moves;
 	ft_printf("Moves: %d\n", new_count);
 	itoa = ft_itoa(new_count);
-	new_string = ft_strjoin("Moves: ", ft_itoa(new_count));
+	new_string = ft_strjoin("Moves: ", itoa);
 	if (!itoa || !new_string)
 	{
 		if (itoa)
@@ -85,7 +85,7 @@ void	edit_attack_counters(t_game *game, size_t new_count)
 	if (game->progress.attacks_str)
 		mlx_delete_image(game->mlx, game->progress.attacks_str);
 	itoa = ft_itoa(new_count);
-	new_string = ft_strjoin("Attacks: ", ft_itoa(new_count));
+	new_string = ft_strjoin("Attacks: ", itoa);
 	if (!itoa || !new_string)
 	{
 		if (itoa)

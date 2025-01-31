@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:34:21 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 11:24:30by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/01/31 20:15:35 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,22 @@ bool	print_layout(char **layout, size_t lines, int fd)
 	size_t	line_len;
 	size_t	line_i;
 	size_t	char_i;
+	char	prev_char;
 
 	line_len = ft_strlen(layout[0]);
 	line_i = 0;
+	prev_char = '\0';
 	while (line_i < lines)
 	{
 		char_i = 0;
 		while (char_i < line_len)
-			print_char_with_color(layout[line_i][char_i++], fd);
+		{
+			if (layout[line_i][char_i] == prev_char)
+				write(fd, &prev_char, 1);
+			else
+				print_char_with_color(layout[line_i][char_i], fd);
+			prev_char = layout[line_i][char_i++];
+		}
 		write(fd, "\n", 1);
 		line_i++;
 	}

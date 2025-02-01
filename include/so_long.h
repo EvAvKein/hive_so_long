@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:42:52 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/31 23:04:23 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/01 15:29:24 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include "perrors.h"
 # include "settings.h"
 
-# define INIT_WIDTH			1280
-# define INIT_HEIGHT		720
+# define WIN_WIDTH			1280
+# define WIN_HEIGHT			720
 
 # define BPP				40
 

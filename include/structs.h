@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 09:07:27 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 11:02:31 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/01 15:27:40 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,19 +87,12 @@ typedef struct s_map
 	size_t	lines;
 }			t_map;
 
-typedef struct s_screen
-{
-	int		width;
-	int		height;
-}			t_screen;
-
 typedef struct s_game
 {
 	mlx_t			*mlx;
 	t_map			*map;
 	t_foe			*foes;
 	t_images		images;
-	t_screen		screen;
 	t_progress		progress;
 }					t_game;
 #endif

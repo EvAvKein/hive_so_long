@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:49:11 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/31 23:02:09 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/01 15:35:13 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	keyhook(mlx_key_data_t key_data, void *param)
 
 static bool	launch_game(t_game *game)
 {
-	game->mlx = mlx_init(game->screen.width, game->screen.height,
+	game->mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT,
 			WINDOW_TITLE, 0);
 	if (!game->mlx)
 		return (clean_exit(game, EXIT_FAILURE));
@@ -64,7 +64,6 @@ int	main(int argc, char **argv)
 		.exit = NULL, .player = NULL, .foe = NULL},
 		.progress = (t_progress){.standing_on_exit = 0, .to_collect = 0,
 		.moves = 0, .attacks = 0, .moves_str = NULL, .attacks_str = NULL},
-		.screen = (t_screen){.width = INIT_WIDTH, .height = INIT_HEIGHT}
 	};
 	if (!save_map(&game, argv[1]))
 		clean_exit(&game, EXIT_FAILURE);

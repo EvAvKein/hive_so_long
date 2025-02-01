@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:34:35 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 10:19:15 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/01 15:36:58 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ void	offset_images_within_bounds(t_game *game, char direction)
 	walls = game->images.wall;
 	player = game->images.player->instances;
 	offset.y = 0
-		- (direction == DOWN_CHAR && player->y > game->screen.height / 2
-			&& walls->instances[walls->count - 1].y >= game->screen.height)
-		+ (direction == UP_CHAR && player->y < game->screen.height / 2
+		- (direction == DOWN_CHAR && player->y > WIN_HEIGHT / 2
+			&& walls->instances[walls->count - 1].y >= WIN_HEIGHT)
+		+ (direction == UP_CHAR && player->y < WIN_HEIGHT / 2
 			&& walls->instances->y < 0);
 	offset.x = 0
-		- (direction == RIGHT_CHAR && player->x > game->screen.width / 2
-			&& walls->instances[walls->count - 1].x >= game->screen.width)
-		+ (direction == LEFT_CHAR && player->x < game->screen.width / 2
+		- (direction == RIGHT_CHAR && player->x > WIN_WIDTH / 2
+			&& walls->instances[walls->count - 1].x >= WIN_WIDTH)
+		+ (direction == LEFT_CHAR && player->x < WIN_WIDTH / 2
 			&& walls->instances->x < 0);
 	if (!offset.x && !offset.y)
 		return ;
@@ -82,10 +82,10 @@ t_offset	calc_offset(t_game *game)
 	t_pos		player;
 
 	offset = (t_offset){.x = 0, .y = 0};
-	if ((size_t)game->screen.width > game->map->width * BPP)
-		offset.x = (game->screen.width / BPP / 2) - (game->map->width / 2);
-	if ((size_t)game->screen.height > game->map->lines * BPP)
-		offset.y = (game->screen.height / BPP / 2) - (game->map->lines / 2);
+	if (WIN_WIDTH > game->map->width * BPP)
+		offset.x = (WIN_WIDTH / BPP / 2) - (game->map->width / 2);
+	if (WIN_HEIGHT > game->map->lines * BPP)
+		offset.y = (WIN_HEIGHT / BPP / 2) - (game->map->lines / 2);
 	if (offset.x && offset.y)
 		return (offset);
 	if (game->images.player->instances)
@@ -94,11 +94,11 @@ t_offset	calc_offset(t_game *game)
 	else
 		init_player_pos(game, &player);
 	if (!offset.x)
-		offset.x = clamp((0 - game->map->width + (game->screen.width / BPP)),
-				(0 - player.x + (game->screen.width / BPP / 2)), 0);
+		offset.x = clamp((0 - game->map->width + (WIN_WIDTH / BPP)),
+				(0 - player.x + (WIN_WIDTH / BPP / 2)), 0);
 	if (!offset.y)
-		offset.y = clamp((0 - game->map->lines + (game->screen.height / BPP)),
-				(0 - player.y + (game->screen.height / BPP / 2)), 0);
+		offset.y = clamp((0 - game->map->lines + (WIN_HEIGHT / BPP)),
+				(0 - player.y + (WIN_HEIGHT / BPP / 2)), 0);
 	return (offset);
 }
 

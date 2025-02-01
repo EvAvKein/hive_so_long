@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:41:32 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 17:21:37 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/01 15:35:28 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ void	increment_move_counters(t_game *game)
 			free(itoa);
 		game->progress.moves_str = mlx_put_string(game->mlx,
 				"ERROR: Memory allocation failed\n",
-				0, game->screen.height - FONT_HEIGHT);
+				0, WIN_HEIGHT - FONT_HEIGHT);
 		return ;
 	}
 	game->progress.moves_str = mlx_put_string(game->mlx, new_string,
-			0, game->screen.height - FONT_HEIGHT);
+			0, WIN_HEIGHT - FONT_HEIGHT);
 	free(itoa);
 	free(new_string);
 }

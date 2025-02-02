@@ -37,12 +37,13 @@ static void	keyhook(mlx_key_data_t key_data, void *param)
 static bool	launch_game(t_game *game)
 {
 	game->mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT,
-			WINDOW_TITLE, 0);
+			WINDOW_TITLE, 1);
 	if (!game->mlx)
 		return (clean_exit(game, EXIT_FAILURE));
+	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 	mlx_key_hook(game->mlx, keyhook, game);
-	draw_images(game);
-	mlx_loop(game->mlx);
+	if (draw_images(game))
+		mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
 	return (clean_exit(game, EXIT_SUCCESS));
 }

@@ -87,8 +87,8 @@ bool	save_map(t_game *game, char *map_path)
 	size_t	collectibles;
 
 	path_len = ft_strlen(map_path);
-	if (path_len < 4
-		|| ft_strncmp(map_path + (ft_strlen(map_path) - 4), ".ber", 5))
+	if (path_len < 5
+		|| ft_strncmp(map_path + (path_len - 4), ".ber", 5))
 		return (!perr("File path doesn't end with \".ber\"!\n"));
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)

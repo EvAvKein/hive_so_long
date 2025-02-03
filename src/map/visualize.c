@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:34:21 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/31 20:15:35 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/03 14:39:16 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 static void	print_char_with_color(char c, int fd)
 {
 	if (c == NAVIGATED_CHAR)
-		write(fd, "\033[0m", 4);
+		write(fd, "\033[0;37;40m", 10);
 	else if (c == EMPTY_CHAR)
-		write(fd, "\033[37;1m", 7);
+		write(fd, "\033[0;32;40m", 10);
 	else if (c == WALL_CHAR)
-		write(fd, "\033[31;1m", 7);
+		write(fd, "\033[0;33;40m", 10);
 	else if (c == EXIT_CHAR)
-		write(fd, "\033[32;1m", 7);
+		write(fd, "\033[1;30;40m", 10);
 	else if (c == PLAYER_CHAR)
-		write(fd, "\033[33;1m", 7);
+		write(fd, "\033[1;32;40m", 10);
 	else if (c == COLLECTIBLE_CHAR)
-		write(fd, "\033[34;1m", 7);
+		write(fd, "\033[1;34;40m", 10);
 	else if (c == FOE_CHAR)
-		write(fd, "\033[35;1m", 7);
+		write(fd, "\033[1;35;40m", 10);
 	else
 	{
 		perr("BUG: print_char_with_color received invalid character: ");

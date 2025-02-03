@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 17:37:51 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 17:39:22 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/03 10:42:49 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	perr(char *text)
 
 int	perrno(char *precolon, int errnum)
 {
-	char *str;
-	
+	char	*str;
+
 	str = strerror(errnum);
 	if (str)
 	{

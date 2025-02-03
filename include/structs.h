@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 09:07:27 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/02/01 15:27:40 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/03 10:45:33 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ typedef struct s_foe
 {
 	unsigned int	pending;
 	t_pos			pos;
-	int				standing_on_collectible;
-	int				standing_on_exit;
+	bool			standing_on_collectible;
+	bool			standing_on_exit;
 	int				img_i;
 	struct s_foe	*next;
 }				t_foe;

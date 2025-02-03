@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:42:52 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/02/01 15:29:24 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/03 18:10:52 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdbool.h>
 # include <fcntl.h>
-# include <stdio.h>
 # include <errno.h>
 # include <string.h>
 # include "../MLX42/include/MLX42/MLX42.h"

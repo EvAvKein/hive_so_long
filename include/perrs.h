@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   perrors.h                                          :+:      :+:    :+:   */
+/*   perrs.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 19:03:55 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 08:32:50 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/04 11:53:04 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PERRORS_H
-# define PERRORS_H
+#ifndef PERRS_H
+# define PERRS_H
 
 // All functions:
 // - Print to stder (fd 2)

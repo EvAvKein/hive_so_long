@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:42:52 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/02/03 18:10:52 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/04 11:50:49 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../libft_full/libft_full.h"
 # include "structs.h"
-# include "perrors.h"
+# include "perrs.h"
 # include "settings.h"
 
 # define WIN_WIDTH			1280

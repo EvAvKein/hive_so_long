@@ -6,11 +6,11 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 21:00:09 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 10:43:12 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/05 11:43:12 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "so_long.h"
 
 bool	for_each_tile(t_game *game,
 			bool(*func)(t_game *game, t_entity c, void *extras),

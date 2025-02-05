@@ -6,11 +6,11 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 19:24:47 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 10:28:02 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/05 11:43:12 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "so_long.h"
 
 void	free_layout(char **layout, size_t lines)
 {

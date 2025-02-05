@@ -6,11 +6,11 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:38:38 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/31 23:01:14 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/05 11:43:12 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "so_long.h"
 
 static bool	update_pos_if_player(t_game *game, t_entity c, void *extras)
 {

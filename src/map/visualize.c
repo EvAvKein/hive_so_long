@@ -6,11 +6,11 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:34:21 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/02/03 14:39:16 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/05 11:43:04 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/so_long.h"
+#include "so_long.h"
 
 static void	print_char_with_color(char c, int fd)
 {

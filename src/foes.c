@@ -6,11 +6,11 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:34:04 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 11:30:54 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/05 11:43:12 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "so_long.h"
 
 void	create_foe(t_game *game, t_pos pos)
 {

@@ -6,11 +6,11 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:11:52 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 10:24:12 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/05 11:43:04 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/so_long.h"
+#include "so_long.h"
 
 static void	navigate(char **replica, t_pos pos, t_journey *journey)
 {

@@ -6,11 +6,11 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 11:03:35 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/01/30 10:15:01 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/05 11:43:04 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/so_long.h"
+#include "so_long.h"
 
 static mlx_image_t	*load_image(mlx_t *mlx, char *path)
 {

@@ -6,11 +6,11 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:49:11 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/02/01 15:35:13 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/05 11:43:12 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "so_long.h"
 
 static void	keyhook(mlx_key_data_t key_data, void *param)
 {

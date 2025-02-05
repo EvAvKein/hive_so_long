@@ -6,11 +6,11 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:34:35 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/02/01 15:36:58 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/05 11:43:04 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/so_long.h"
+#include "so_long.h"
 
 mlx_instance_t	*image_instance_by_pos(mlx_image_t *img,
 	t_offset offset, t_pos pos)

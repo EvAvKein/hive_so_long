@@ -6,22 +6,22 @@
 #    By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/11 09:31:47 by ekeinan           #+#    #+#              #
-#    Updated: 2025/02/04 11:51:06 by ekeinan          ###   ########.fr        #
+#    Updated: 2025/02/05 11:52:39 by ekeinan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = so_long
+NAME := so_long
 
-LIBFT_DIR = libft_full
-LIBFT_LIB = $(LIBFT_DIR)/libft_full.a
+LIBFT_DIR := libft_full
+LIBFT_LIB := $(LIBFT_DIR)/libft_full.a
 
-MLX_REPO = https://github.com/codam-coding-college/MLX42.git
-MLX_DIR = MLX42
-MLX_BUILD_DIR = build
-MLX_LIB = $(MLX_DIR)/$(MLX_BUILD_DIR)/libmlx42.a
+MLX_REPO := https://github.com/codam-coding-college/MLX42.git
+MLX_DIR := MLX42
+MLX_BUILD_DIR := build
+MLX_LIB := $(MLX_DIR)/$(MLX_BUILD_DIR)/libmlx42.a
 
-SRC_DIR = src
-SRC_FILES = main.c \
+SRC_DIR := src
+SRC_FILES := main.c \
 			player.c \
 			foes.c \
 			adjacent.c \
@@ -36,10 +36,17 @@ SRC_FILES = main.c \
 			mlx/images_utils.c \
 			mlx/update_overlayed.c
 
-COMPILE_FLAGS = -Wall -Wextra -Werror
-COMPILE_WITH_MLX = $(MLX_LIB) -Iinclude -ldl -lglfw -pthread -lm
+INCLUDE_DIR := include
+INCLUDE_FILES := so_long.h \
+				 structs.h \
+				 perrs.h \
+				 settings.h
 
-OBJ = $(SRC_FILES:%.c=$(SRC_DIR)/%.o)
+COMPILE_FLAGS := -Wall -Wextra -Werror -I$(INCLUDE_DIR)
+COMPILE_WITH_MLX := $(MLX_LIB) -Iinclude -ldl -lglfw -pthread -lm
+
+OBJ := $(SRC_FILES:%.c=$(SRC_DIR)/%.o)
+HEADERS := $(INCLUDE_FILES:%=$(INCLUDE_DIR)/%)
 
 all: $(NAME)
 
@@ -55,7 +62,7 @@ $(MLX_LIB):
 %.o: %.c
 	cc $(COMPILE_FLAGS) -c $< -o $@ -D VISUALIZE=$(if $(VISUALIZE),1,0)
 
-$(NAME): $(LIBFT_LIB) $(MLX_LIB) $(OBJ)
+$(NAME): $(LIBFT_LIB) $(MLX_LIB) $(OBJ) $(HEADERS)
 	cc $(COMPILE_FLAGS) $(OBJ) $(LIBFT_LIB) $(COMPILE_WITH_MLX) -o $(NAME)
 
 visualize: export VISUALIZE = 1

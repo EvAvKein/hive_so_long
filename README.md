@@ -32,6 +32,7 @@ Extra features I added:
 - Optional game-state history in terminal
 - Enemies spawn after collectible pickups - enemies chase the player
 - Gain attacks by picking up collectibles, and use those to defeat enemies (with on-screen attacks count)
+- Homemade pixel art - it's not great, but it's mine ^^'
 
 ---
 

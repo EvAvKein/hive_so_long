@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 08:34:21 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/02/06 10:03:25 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/07 12:32:12 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,6 @@ bool	print_layout_journey_and_pause(
 	print_layout(layout, journey->visualizing_lines, fd);
 	print_journey(journey, fd);
 	write(fd, "\033[37m(Type S to skip visualizer)\n\033[0m", 38);
-	read(0, &terminal, 1);
+	read(0, terminal, 1);
 	return (terminal[0] != 'S' && terminal[0] != 's');
 }

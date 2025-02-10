@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 17:36:33 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/02/05 11:43:04 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/10 07:39:30 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,11 @@ static bool	save_map_lines(t_map *map, int fd)
 				free(map->layout[--map->lines]);
 			free(map->layout);
 			map->layout = NULL;
-			return (!perrno("Map processing", ENOMEM));
+			return ((close(fd) || 1) && !perrno("Map processing", ENOMEM));
 		}
 		map->layout[map->lines++] = line;
 	}
+	close(fd);
 	return (1);
 }
 

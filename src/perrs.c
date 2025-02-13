@@ -6,7 +6,7 @@
 /*   By: ekeinan <ekeinan@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 17:37:51 by ekeinan           #+#    #+#             */
-/*   Updated: 2025/02/05 11:43:12 by ekeinan          ###   ########.fr       */
+/*   Updated: 2025/02/13 10:08:44 by ekeinan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	perrno(char *precolon, int errnum)
 		perr(precolon);
 		write(2, ": ", 2);
 		perr(str);
-		free(str);
 	}
 	return (1);
 }

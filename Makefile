@@ -82,4 +82,4 @@ re: fclean all
 neat: $(NAME) clean
 	clear
 
-.PHONY: all bonus clean fclean re
+.PHONY: all visualize bonus clean fclean re neat

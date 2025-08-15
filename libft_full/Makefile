@@ -24,12 +24,13 @@ SRC = ft_printf.c \
 
 OBJ = $(SRC:.c=.o)
 
+CC := clang
 COMPILE_FLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
 %.o: %.c
-	cc $(COMPILE_FLAGS) -c $< -o $@
+	$(CC) $(COMPILE_FLAGS) -c $< -o $@
 
 $(NAME): $(OBJ) $(LIB)
 	@mv $(LIB) $(NAME)

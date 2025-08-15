@@ -42,6 +42,7 @@ INCLUDE_FILES := so_long.h \
 				 perrs.h \
 				 settings.h
 
+CC := clang
 COMPILE_FLAGS := -Wall -Wextra -Werror -I$(INCLUDE_DIR)
 COMPILE_WITH_MLX := $(MLX_LIB) -Iinclude -ldl -lglfw -pthread -lm
 
@@ -60,10 +61,10 @@ $(MLX_LIB):
 	@cd $(MLX_DIR) && cmake -B build && cmake --build build -j4
 
 %.o: %.c
-	cc $(COMPILE_FLAGS) -c $< -o $@ -D VISUALIZE=$(if $(VISUALIZE),1,0)
+	$(CC) $(COMPILE_FLAGS) -c $< -o $@ -D VISUALIZE=$(if $(VISUALIZE),1,0)
 
 $(NAME): $(LIBFT_LIB) $(MLX_LIB) $(OBJ) $(HEADERS)
-	cc $(COMPILE_FLAGS) $(OBJ) $(LIBFT_LIB) $(COMPILE_WITH_MLX) -o $(NAME)
+	$(CC) $(COMPILE_FLAGS) $(OBJ) $(LIBFT_LIB) $(COMPILE_WITH_MLX) -o $(NAME)
 
 visualize: export VISUALIZE = 1
 visualize: $(LIBFT_LIB) $(MLX_LIB) $(OBJ)

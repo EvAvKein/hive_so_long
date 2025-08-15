@@ -61,16 +61,17 @@ SRC_BONUS = ft_lstnew_bonus.c \
 OBJ_CORE = $(SRC_CORE:.c=.o)
 OBJ_BONUS = $(SRC_BONUS:.c=.o)
 
+CC := clang
 COMPILE_FLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
 %.o: %.c
-	cc $(COMPILE_FLAGS) -c $< -o $@
+	$(CC) $(COMPILE_FLAGS) -c $< -o $@
 
 so:
 	$(CC) -nostartfiles -fPIC $(COMPILE_FLAGS) $(SRC_CORE) $(SRC_BONUS)
-	gcc -nostartfiles -shared -o libft.so $(OBJ_CORE) $(OBJ_BONUS)
+	$(CC) -nostartfiles -shared -o libft.so $(OBJ_CORE) $(OBJ_BONUS)
 
 $(NAME): $(OBJ_CORE)
 	ar -rcs $(NAME) $(OBJ_CORE)

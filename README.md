@@ -4,6 +4,8 @@ My 6th project at 42 Network's Hive Helsinki 🐝
 
 A 2D game using a minimal windowing/graphics library (MLX42)
 
+https://github.com/user-attachments/assets/3f3b38ea-43c6-469b-a047-513562e1749f
+
 > [!TIP]
 > If you're at a 42 school and doing this project: It's genuinely so much better to ask fellow students instead of reading online solutions ✨
 

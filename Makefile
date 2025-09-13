@@ -15,7 +15,7 @@ NAME := so_long
 LIBFT_DIR := libft_full
 LIBFT_LIB := $(LIBFT_DIR)/libft_full.a
 
-MLX_REPO := https://github.com/codam-coding-college/MLX42.git
+MLX_REPO := https://github.com/EvAvKein/MLX42_copy
 MLX_DIR := MLX42
 MLX_BUILD_DIR := build
 MLX_LIB := $(MLX_DIR)/$(MLX_BUILD_DIR)/libmlx42.a
